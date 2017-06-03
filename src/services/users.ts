@@ -2,7 +2,7 @@ import { request, config } from '../utils'
 const { api } = config
 const { users } = api
 
-export async function query (params) {
+export function query (params): Promise<any> {
   return request({
     url: users,
     method: 'get',
@@ -10,7 +10,7 @@ export async function query (params) {
   })
 }
 
-export async function create (params) {
+export function create (params): Promise<any> {
   return request({
     url: users,
     method: 'post',
@@ -18,7 +18,7 @@ export async function create (params) {
   })
 }
 
-export async function remove (params) {
+export function remove (params): Promise<any> {
   return request({
     url: users,
     method: 'delete',
@@ -26,7 +26,7 @@ export async function remove (params) {
   })
 }
 
-export async function update (params) {
+export function update (params): Promise<any> {
   return request({
     url: users,
     method: 'put',

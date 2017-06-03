@@ -36,7 +36,14 @@ const userPermission = {
   DEVELOPER: ['dashboard', 'users', 'UIElement', 'UIElementIconfont', 'chart'],
 }
 
-const adminUsers = [
+interface IUser {
+  id?: number,
+  username?: string,
+  password?: string,
+  permissions?: Array<string>
+}
+
+const adminUsers: Array<IUser> = [
   {
     id: 0,
     username: 'admin',
@@ -55,7 +62,7 @@ const adminUsers = [
   },
 ]
 
-module.exports = {
+export const user = {
 
   [`POST ${apiPrefix}/user/login`] (req, res) {
     const { username, password } = req.body
@@ -81,8 +88,8 @@ module.exports = {
 
   [`GET ${apiPrefix}/userInfo`] (req, res) {
     const cookies = qs.parse(req.headers.cookie, { delimiter: ';' })
-    const response = {}
-    const user = {}
+    const response: { success?: boolean, user?: IUser } = {}
+    const user: IUser = {}
     if (!cookies.token) {
       res.status(200).send({ message: 'Not Login' })
       return

@@ -2,7 +2,7 @@ import { request, config } from '../utils'
 const { api } = config
 const { userInfo, userLogout } = api
 
-export async function login (params) {
+export function login (params: any): Promise<any> {
   return request({
     url: '/api/login',
     method: 'post',
@@ -10,7 +10,7 @@ export async function login (params) {
   })
 }
 
-export async function logout (params) {
+export function logout (params): Promise<any> {
   return request({
     url: userLogout,
     method: 'get',
@@ -18,7 +18,7 @@ export async function logout (params) {
   })
 }
 
-export async function getUserInfo (params) {
+export function getUserInfo (params): Promise<any> {
   return request({
     url: userInfo,
     method: 'get',

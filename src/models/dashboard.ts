@@ -1,14 +1,24 @@
+import { observable, computed, action, runInAction } from 'mobx'
 import { myCity, queryWeather, query } from '../services/dashboard'
-import { parse } from 'qs'
+
+
+interface IWeather {
+  city: string,
+  temperature: string,
+  name: string,
+  icon: string,
+  dateTime: string
+}
 
 // zuimei 摘自 http://www.zuimeitianqi.com/res/js/index.js
 let zuimei = {
-  parseActualData (actual) {
+  parseActualData (actual): IWeather {
     let weather = {
       icon: `http://www.zuimeitianqi.com/res/icon/${zuimei.getIconName(actual.wea, 'big')}`,
       name: zuimei.getWeatherName(actual.wea),
       temperature: actual.tmp,
       dateTime: new Date(actual.PTm).format('MM-dd hh:mm'),
+      city: ''
     }
     return weather
   },
@@ -16,7 +26,7 @@ let zuimei = {
   getIconName (wea, flg) {
     let myDate = new Date()
     let hour = myDate.getHours()
-    let num = 0
+    let num: number|string = 0
     if (wea.indexOf('/') !== -1) {
       let weas = wea.split('/')
       if (hour < 12) {
@@ -163,67 +173,61 @@ let zuimei = {
   },
 }
 
-export default {
-  namespace: 'dashboard',
-  state: {
-    weather: {
-      city: '成都',
-      temperature: '5',
-      name: '晴',
-      icon: 'http://www.zuimeitianqi.com/res/icon/0_big.png',
-      dateTime: new Date().format('MM-dd hh:mm'),
-    },
-    sales: [],
-    quote: {
-      avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
-    },
-    numbers: [],
-    recentSales: [],
-    comments: [],
-    completed: [],
-    browser: [],
-    cpu: {},
-    user: {
-      avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
-    },
+
+
+interface IDashboardStore {
+  weather: IWeather,
+  sales: Array<never>,
+  quote: {
+    avatar: string
   },
-  subscriptions: {
-    setup ({ dispatch }) {
-      dispatch({ type: 'query' })
-      dispatch({ type: 'queryWeather' })
-    },
+  numbers: Array<never>,
+  recentSales: Array<never>,
+  comments: Array<never>,
+  completed: Array<never>,
+  browser: Array<never>,
+  cpu: Array<never>,
+  user: {
+    avatar: string
   },
-  effects: {
-    *query ({
-      payload,
-    }, { call, put }) {
-      const data = yield call(query, parse(payload))
-      yield put({ type: 'queryWeather', payload: { ...data } })
-    },
-    *queryWeather ({
-      payload,
-    }, { call, put }) {
-      const myCityResult = yield call(myCity, { flg: 0 })
-      const result = yield call(queryWeather, { cityCode: myCityResult.selectCityCode })
-      const weather = zuimei.parseActualData(result.data.actual)
-      weather.city = myCityResult.selectCityName
-      yield put({ type: 'queryWeatherSuccess', payload: {
-        weather,
-      } })
-    },
-  },
-  reducers: {
-    queryWeatherSuccess (state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      }
-    },
-    queryWeather (state, action) {
-      return {
-        ...state,
-        ...action.payload,
-      }
-    },
-  },
+
+  query: (payload: any) => void,
+  queryWeather: (payload: any) => void
+}
+
+
+export class DashboardStore implements IDashboardStore {
+  @observable weather:IWeather
+  @observable sales = []
+  @observable quote = {
+    avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
+  }
+  @observable numbers = []
+  @observable recentSales = []
+  @observable comments = []
+  @observable completed = []
+  @observable browser = []
+  @observable cpu = []
+  @observable user = {
+    avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
+  }
+
+  @action.bound
+  async query(payload: any) {
+    const data = await query(payload)
+    runInAction('querySuccess', ()=> {
+      Object.assign(this, data)
+    })
+  }
+
+  @action.bound
+  async queryWeather(payload: any) {
+    const myCityResult = await myCity({flg: 0})
+    const result = await queryWeather({cityCode: myCityResult.selectCityCode})
+    const weather = zuimei.parseActualData(result)
+    weather.city = myCityResult.selectCityName
+    runInAction('queryWeatherSuccess', ()=>{
+      this.weather = weather
+    })
+  }
 }

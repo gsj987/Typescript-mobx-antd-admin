@@ -2,21 +2,21 @@ import { request, config } from '../utils'
 const { api } = config
 const { dashboard } = api
 
-export async function myCity (params) {
+export function myCity (params): Promise<any> {
   return request({
     url: 'http://www.zuimeitianqi.com/zuimei/myCity',
     data: params,
   })
 }
 
-export async function queryWeather (params) {
+export function queryWeather (params): Promise<any> {
   return request({
     url: 'http://www.zuimeitianqi.com/zuimei/queryWeather',
     data: params,
   })
 }
 
-export async function query (params) {
+export function query (params): Promise<any> {
   return request({
     url: dashboard,
     method: 'get',
