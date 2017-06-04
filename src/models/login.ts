@@ -2,12 +2,12 @@ import { login } from '../services/login'
 import { observable, computed, action, runInAction } from 'mobx'
 import { queryURL } from '../utils'
 
-interface ILoginState {
+export interface ILoginStore {
   loginLoading: boolean,
   login: (payload: any) => void
 }
 
-export class LoginState implements ILoginState{
+export class LoginState implements ILoginStore {
   @observable loginLoading: boolean = false;
 
   @action.bound

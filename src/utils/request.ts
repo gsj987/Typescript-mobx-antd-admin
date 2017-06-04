@@ -10,7 +10,7 @@ axios.defaults.baseURL = config.baseURL
 
 interface IOptions {
   method?: string;
-  data: object | null;
+  data?: object | null;
   fetchType?: string;
   url: string;
 }

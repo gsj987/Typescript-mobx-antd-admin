@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.less'
-import Mock from 'mockjs'
+const Mock = require('mockjs')
 import { request, config } from '../../utils'
 import {
   Row,
@@ -13,7 +13,15 @@ import {
 const { api, baseURL } = config
 const { userInfo, dashboard, users, userLogin } = api
 
-const requestOptions = [
+
+interface IRequest {
+  url: string,
+  desc: string,
+  data?: any,
+  method?: string,
+}
+
+const requestOptions: Array<IRequest> = [
   {
     url: baseURL + userInfo,
     desc: 'intercept request by mock.js',
@@ -98,7 +106,15 @@ const requestOptions = [
     desc: 'cross-domain request by yahoo\'s yql',
   }]
 
-export default class RequestPage extends React.Component {
+
+interface IState {
+  currntRequest: IRequest,
+  method: string,
+  result: any
+}
+
+export class RequestPage extends React.Component<any, IState> {
+
   constructor (props) {
     super(props)
     this.state = {
@@ -107,6 +123,7 @@ export default class RequestPage extends React.Component {
       result: '',
     }
   }
+
   componentDidMount () {
     this.handleRequest()
   }
@@ -125,8 +142,10 @@ export default class RequestPage extends React.Component {
     })
     request({ ...requestParams }).then((data) => {
       const state = this.state
-      state.result = [this.state.result, <div key="complete"><div>请求完成</div>{JSON.stringify(data)}</div>]
-      this.setState(state)
+      this.setState({
+        ... this.state,
+        result: [this.state.result, <div key="complete"><div>请求完成</div>{JSON.stringify(data)}</div>]
+      })
     })
   }
 
@@ -138,8 +157,11 @@ export default class RequestPage extends React.Component {
       const { method = 'get' } = item
       return curretUrl === item.url && curretMethod === method
     })
-    state.currntRequest = currntItem[0]
-    this.setState(state)
+
+    this.setState({
+      ...this.state,
+      currntRequest: currntItem[0]
+    })
   }
 
   render () {
