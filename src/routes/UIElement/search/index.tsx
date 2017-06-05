@@ -2,6 +2,8 @@ import React from 'react'
 import { Search } from '../../../components'
 import { Table, Row, Col, Card } from 'antd'
 
+class STable extends Table<any> {}
+
 const SearchPage = () => <div className="content-inner">
   <Row gutter={32}>
     <Col lg={8} md={12}>
@@ -35,8 +37,8 @@ const SearchPage = () => <div className="content-inner">
   <h2 style={{ margin: '16px 0' }}>Props</h2>
   <Row>
     <Col lg={18} md={24}>
-      <Table
-        rowKey={(record, key) => key}
+      <STable
+        rowKey={(record, key) => key.toString()}
         pagination={false}
         bordered
         scroll={{ x: 800 }}
@@ -95,4 +97,4 @@ const SearchPage = () => <div className="content-inner">
   </Row>
 </div>
 
-export default SearchPage
+export { SearchPage }

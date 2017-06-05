@@ -11,13 +11,13 @@ interface OptionProps {
 }
 
 interface IProps {
-  select: boolean,
-  selectProps: SelectProps,
-  selectOptions: Array<OptionProps>,
+  select?: boolean,
+  selectProps?: SelectProps,
+  selectOptions?: Array<OptionProps>,
   style?: object,
-  keyword: string,
-  size: any,
-  onSearch: (data: any) => void
+  keyword?: string,
+  size?: any,
+  onSearch?: (data: any) => void
 }
 
 interface IState {

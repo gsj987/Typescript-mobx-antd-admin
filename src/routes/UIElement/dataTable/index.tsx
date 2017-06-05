@@ -1,8 +1,23 @@
 import React from 'react'
 import { DataTable } from '../../../components'
 import { Table, Row, Col, Card, Select } from 'antd'
+import { IColumn } from '../../../typings/tables'
+import { IProps as IDataTableProps } from '../../../components/DataTable/DataTable'
 
-class DataTablePage extends React.Component {
+interface IProps {
+
+}
+
+interface IState {
+  filterCase: {
+    gender: string
+  }
+}
+
+class DTable extends Table<any> {}
+
+
+class DataTablePage extends React.Component<IProps, IState> {
   constructor (props) {
     super(props)
     this.state = { filterCase: {
@@ -19,13 +34,18 @@ class DataTablePage extends React.Component {
   }
   render () {
     const { filterCase } = this.state
-    const staticDataTableProps = {
+    const staticDataTableProps: IDataTableProps = {
       dataSource: [{ key: '1', name: 'John Brown', age: 24, address: 'New York' }, { key: '2', name: 'Jim Green', age: 23, address: 'London' }],
       columns: [{ title: 'name', dataIndex: 'name' }, { title: 'Age', dataIndex: 'age' }, { title: 'Address', dataIndex: 'address' }],
       pagination: false,
+      fetch: {
+        url:'',
+        data: {},
+        dataKey: ''
+      }
     }
 
-    const fetchDataTableProps = {
+    const fetchDataTableProps: IDataTableProps = {
       fetch: {
         url: 'https://randomuser.me/api',
         data: {
@@ -40,9 +60,10 @@ class DataTablePage extends React.Component {
         { title: 'Gender', dataIndex: 'gender' },
       ],
       rowKey: 'registered',
+      dataSource: []
     }
 
-    const caseChangeDataTableProps = {
+    const caseChangeDataTableProps: IDataTableProps = {
       fetch: {
         url: 'https://randomuser.me/api',
         data: {
@@ -58,13 +79,14 @@ class DataTablePage extends React.Component {
         { title: 'Gender', dataIndex: 'gender' },
       ],
       rowKey: 'registered',
+      dataSource: []
     }
 
     return (<div className="content-inner">
       <Row gutter={32}>
         <Col lg={12} md={24}>
           <Card title="默认">
-            <DataTable pagination={false} />
+            <DataTable pagination={false} fetch={{url:'', data:{}, dataKey:''}}/>
           </Card>
         </Col>
         <Col lg={12} md={24}>
@@ -96,8 +118,8 @@ class DataTablePage extends React.Component {
       <h2 style={{ margin: '16px 0' }}>Props</h2>
       <Row>
         <Col lg={18} md={24}>
-          <Table
-            rowKey={(record, key) => key}
+          <DTable
+            rowKey={(record, key) => key.toString()}
             pagination={false}
             bordered
             scroll={{ x: 800 }}
@@ -134,4 +156,4 @@ class DataTablePage extends React.Component {
 }
 
 
-export default DataTablePage
+export { DataTablePage }

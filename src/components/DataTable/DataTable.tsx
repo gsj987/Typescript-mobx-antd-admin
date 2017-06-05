@@ -6,15 +6,16 @@ import lodash from 'lodash'
 import './DataTable.less'
 
 
-interface IProps {
-  dataSource: any,
-  pagination: PaginationProps,
+export interface IProps {
+  dataSource?: any,
+  pagination?: PaginationProps | boolean,
   fetch: {
     url: string,
     data: object,
     dataKey: string
   }
-  columns: any
+  columns?: any,
+  rowKey?: string
 }
 
 interface IState {

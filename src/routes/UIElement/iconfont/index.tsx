@@ -5,6 +5,8 @@ import styles from './index.less'
 
 const iconlist = ['Cherry', 'Cheese', 'Bread', 'Beer', 'Beet', 'Bacon', 'Banana', 'Asparagus', 'Apple']
 
+class ITable extends Table<any> {}
+
 const IcoPage = () => <div className="content-inner">
   <ul className={styles.list}>
     {iconlist.map(item => <li key={item}><Iconfont className={styles.icon} type={item} /><span className={styles.name}>{item}</span></li>)}
@@ -12,8 +14,8 @@ const IcoPage = () => <div className="content-inner">
   <h2 style={{ margin: '16px 0' }}>Props</h2>
   <Row>
     <Col lg={18} md={24}>
-      <Table
-        rowKey={(record, key) => key}
+      <ITable
+        rowKey={(record, key) => key.toString()}
         pagination={false}
         bordered
         scroll={{ x: 800 }}

@@ -6,8 +6,8 @@ interface IMenuItem {
   name: string
 }
 
-interface IProps {
-  onMenuClick: any,
+export interface IProps {
+  onMenuClick?: any,
   menuOptions: Array<IMenuItem>,
   buttonStyle?: object | null,
   dropdownProps?: any

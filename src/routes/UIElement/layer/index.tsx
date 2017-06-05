@@ -6,6 +6,8 @@ let Enum = {
   default: 1,
 }
 
+class ITable extends Table<any>{}
+
 const IcoPage = () => {
   const handleButtonClick = (key) => {
     if (key === Enum.default) {
@@ -31,8 +33,8 @@ const IcoPage = () => {
     </div>
     <Row>
       <Col lg={18} md={24}>
-        <Table
-          rowKey={(record, key) => key}
+        <ITable
+          rowKey={(record, key) => key.toString()}
           pagination={false}
           bordered
           scroll={{ x: 800 }}
@@ -142,4 +144,4 @@ const IcoPage = () => {
   </div>)
 }
 
-export default IcoPage
+export { IcoPage }

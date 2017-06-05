@@ -2,6 +2,10 @@ import React from 'react'
 import { DropOption } from '../../../components'
 import { Table, Row, Col, Card, message } from 'antd'
 
+
+class DTable extends Table<any> {}
+
+
 const DropOptionPage = () => <div className="content-inner">
   <Row gutter={32}>
     <Col lg={8} md={12}>
@@ -38,8 +42,8 @@ const DropOptionPage = () => <div className="content-inner">
   <h2 style={{ margin: '16px 0' }}>Props</h2>
   <Row>
     <Col lg={18} md={24}>
-      <Table
-        rowKey={(record, key) => key}
+      <DTable
+        rowKey={(record, key) => key.toString()}
         pagination={false}
         bordered
         scroll={{ x: 800 }}

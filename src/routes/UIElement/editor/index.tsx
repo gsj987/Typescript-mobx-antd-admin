@@ -1,16 +1,20 @@
 import React from 'react'
-import { Editor } from '../../../components'
+import { DraftEditor } from '../../../components'
 import { convertToRaw } from 'draft-js'
 import { Row, Col, Card } from 'antd'
 import draftToHtml from 'draftjs-to-html'
 import draftToMarkdown from 'draftjs-to-markdown'
 // https://github.com/jpuri/react-draft-wysiwyg/blob/master/docs/src/components/Demo/index.js
 
-export default class EditorPage extends React.Component {
+interface IState {
+  editorContent: any
+}
+
+export class EditorPage extends React.Component<any, IState> {
   constructor (props) {
     super(props)
     this.state = {
-      editorContent: null,
+      editorContent: '',
     }
   }
   onEditorStateChange = (editorContent) => {
@@ -35,7 +39,7 @@ export default class EditorPage extends React.Component {
       <Row gutter={32}>
         <Col {...colProps}>
           <Card title="Editor" style={{ overflow: 'visible' }}>
-            <Editor
+            <DraftEditor
               wrapperStyle={{
                 minHeight: 500,
               }}
