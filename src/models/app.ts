@@ -3,7 +3,7 @@ import { getUserInfo, logout } from '../services/app'
 import { config } from '../utils'
 const { prefix } = config
 
-interface IAppStore {
+export interface IAppStore {
   user: any,
   loginButtonLoading: boolean,
   menuPopoverVisible: boolean,
@@ -14,10 +14,11 @@ interface IAppStore {
 
   queryUser: (payload: any) => void,
   logout: (payload: any) => void,
-  switchSider: (payload: any) => void,
-  changeTheme: (payload: any) => void,
-  changeNavbar: (payload: any) => void,
-  switchMenuPopver: (payload: any) => void,
+  switchSider: () => void,
+  changeTheme: () => void,
+  changeNavbar: () => void,
+  switchMenuPopver: () => void,
+  handleNavOpenKeys: (navOpenKeys: Array<string>) => void,
 }
 
 class AppStore implements IAppStore{
@@ -64,19 +65,19 @@ class AppStore implements IAppStore{
   }
 
   @action.bound
-  switchSider(payload: any){
+  switchSider(){
     this.siderFold = !this.siderFold
-    localStorage.setItem(`${prefix}siderFold`, JSON.stringify(!this.siderFold))
+    localStorage.setItem(`${prefix}siderFold`, JSON.stringify(this.siderFold))
   }
 
   @action.bound
-  changeTheme(payload: any){
+  changeTheme(){
     this.darkTheme = !this.darkTheme
-    localStorage.setItem(`${prefix}darkTheme`, JSON.stringify(!this.darkTheme))
+    localStorage.setItem(`${prefix}darkTheme`, JSON.stringify(this.darkTheme))
   }
 
   @action.bound
-  changeNavbar(payload: any){
+  changeNavbar(){
     if(document.body.clientWidth < 769){
       this.isNavbar = true
     }else{
@@ -85,7 +86,12 @@ class AppStore implements IAppStore{
   }
 
   @action.bound
-  switchMenuPopver(payload: any){
+  switchMenuPopver(){
     this.menuPopoverVisible = !this.menuPopoverVisible
+  }
+
+  @action.bound
+  handleNavOpenKeys(navOpenKeys: Array<string>) {
+    this.navOpenKeys = navOpenKeys
   }
 }

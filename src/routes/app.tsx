@@ -1,13 +1,20 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'dva'
 import { Layout } from '../components'
 import { classnames, config } from '../utils'
+import { IAppStore } from '../models/app'
 import { Helmet } from 'react-helmet'
 import '../themes/index.less'
 
 const { Header, Bread, Footer, Sider, styles } = Layout
 
-const App = ({ children, location, dispatch, app }) => {
+
+interface IAppProps {
+  children: JSX.Element | string,
+  location: Location,
+  app: IAppStore
+}
+
+const App = ({ children, location, app }: IAppProps) => {
   const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = app
 
   const headerProps = {
@@ -18,16 +25,16 @@ const App = ({ children, location, dispatch, app }) => {
     menuPopoverVisible,
     navOpenKeys,
     switchMenuPopover () {
-      dispatch({ type: 'app/switchMenuPopver' })
+      app.switchMenuPopver()
     },
     logout () {
-      dispatch({ type: 'app/logout' })
+      app.logout({})
     },
     switchSider () {
-      dispatch({ type: 'app/switchSider' })
+      app.switchSider()
     },
-    changeOpenKeys (openKeys) {
-      dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+    changeOpenKeys (openKeys: Array<string>) {
+      app.handleNavOpenKeys(openKeys)
     },
   }
 
@@ -37,11 +44,11 @@ const App = ({ children, location, dispatch, app }) => {
     location,
     navOpenKeys,
     changeTheme () {
-      dispatch({ type: 'app/changeTheme' })
+      app.changeTheme()
     },
-    changeOpenKeys (openKeys) {
+    changeOpenKeys (openKeys: Array<string>) {
       localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
-      dispatch({ type: 'app/handleNavOpenKeys', payload: { navOpenKeys: openKeys } })
+      app.handleNavOpenKeys(openKeys)
     },
   }
 
@@ -54,7 +61,7 @@ const App = ({ children, location, dispatch, app }) => {
       <Helmet>
         <title>ANTD ADMIN</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href={config.logoSrc} type="image/x-icon" />
+        <link rel="icon" href={config.logo} type="image/x-icon" />
         {config.iconFontUrl ? <script src={config.iconFontUrl}></script> : ''}
       </Helmet>
       <div className={classnames(styles.layout, { [styles.fold]: isNavbar ? false : siderFold }, { [styles.withnavbar]: isNavbar })}>
@@ -76,11 +83,5 @@ const App = ({ children, location, dispatch, app }) => {
   )
 }
 
-App.propTypes = {
-  children: PropTypes.element.isRequired,
-  location: PropTypes.object,
-  dispatch: PropTypes.func,
-  app: PropTypes.object,
-}
 
-export default connect(({ app }) => ({ app }))(App)
+export { App }
