@@ -14,10 +14,10 @@ interface IProps {
   select: boolean,
   selectProps: SelectProps,
   selectOptions: Array<OptionProps>,
-  style: object,
+  style?: object,
   keyword: string,
   size: any,
-  onSearch: (data: any) => {}
+  onSearch: (data: any) => void
 }
 
 interface IState {

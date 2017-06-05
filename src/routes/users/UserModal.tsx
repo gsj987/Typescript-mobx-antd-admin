@@ -14,33 +14,33 @@ const formItemLayout = {
 }
 
 interface IUser {
-  key: string,
-  name: string,
-  nickName: string,
-  age: number,
-  phone: string,
-  isMale: boolean,
-  email: string,
-  address: string,
+  key?: string,
+  name?: string
+  nickName?: string,
+  age?: number,
+  phone?: string,
+  isMale?: boolean,
+  email?: string,
+  address?: string,
 }
 
-interface IProps {
+export interface IProps {
   visible: boolean,
   type: string,
   item: IUser,
-  form: WrappedFormUtils,
   onOk: Function,
   onCancel:((e: React.MouseEvent<any>) => void) | undefined
 }
 
+interface IFormWrapper {
+  form: WrappedFormUtils,
+}
 
-
-@Form.create<IProps>()
-class MModal extends React.Component<IProps, any>{
+class MModal extends React.Component<IProps & IFormWrapper, any>{
 
   modalOpts: ModalProps
 
-  constructor(props: IProps) {
+  constructor(props: IProps & IFormWrapper) {
     super(props)
     this.modalOpts = {
       title: `${props.type === 'create' ? '新建用户' : '修改用户'}`,
@@ -136,53 +136,31 @@ class MModal extends React.Component<IProps, any>{
             })(<Input />)}
 
           </FormItem>
-
           <FormItem label="邮箱：" hasFeedback {...formItemLayout}>
-
             {this.props.form.getFieldDecorator('email', {
-
               initialValue: this.props.item.email,
-
               rules: [
 
                 {
-
                   required: true,
-
                   message: '不能为空',
-
                 },
-
               ],
-
             })(<Input />)}
-
           </FormItem>
 
           <FormItem label="住址：" hasFeedback {...formItemLayout}>
-
             {this.props.form.getFieldDecorator('address', {
-
               initialValue: this.props.item.address,
-
               rules: [
-
                 {
-
                   required: true,
-
                   message: '不能为空',
-
                 },
-
               ],
-
             })(<Input />)}
-
           </FormItem>
-
         </Form>
-
       </Modal>
 
     )
@@ -191,6 +169,6 @@ class MModal extends React.Component<IProps, any>{
 
 }
 
+const UserModal: React.StatelessComponent<IProps> =  Form.create<IProps>()(MModal)
 
-
-export { MModal }
+export { UserModal }

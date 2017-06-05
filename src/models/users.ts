@@ -1,50 +1,44 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { create, remove, update, query } from '../services/users'
+import { PaginationProps } from 'antd/lib/pagination'
 
-interface IUser {
-  id: number,
-  username: string,
-  password: string,
-  permissions: Array<string>
+export interface IUser {
+  id?: number,
+  username?: string,
+  password?: string,
+  permissions?: Array<string>
 }
 
-interface IPageination {
-  showSizeChanger: boolean,
-  showQuickJumper: boolean,
-  showTotal: (total:number) => string,
-  current: number,
-  total: number | null
-}
 
-interface IUsersState {
+export interface IUsersStore {
   list:Array<IUser>,
   currentItem: IUser,
   modalVisible: boolean,
   modalType: string,
   isMotion: boolean,
-  pageination: IPageination,
+  pagination: PaginationProps,
 
   query: (payload: any) => void,
   delete: (payload: any) => void,
   create: (payload: any) => void,
   update: (payload: any) => void,
   switchIsMotion: () => void,
-  showModal: () => void,
+  showModal: (type: string, currentItem?: IUser) => void,
   hideModal: () => void
 }
 
-export class UsersState {
+export class UsersStore implements IUsersStore {
   @observable list:Array<IUser> = []
   @observable currentItem:IUser
   @observable modalVisible:boolean = false
   @observable modalType:string = 'create'
   @observable isMotion:boolean = localStorage.getItem('antdAdminUserIsMotion') === 'true'
-  @observable pageination:IPageination = {
+  @observable pagination: PaginationProps = {
     showSizeChanger: true,
       showQuickJumper: true,
       showTotal: total => `共 ${total} 条`,
       current: 1,
-      total: null
+      total: 0
   }
 
   @action.bound
@@ -53,7 +47,7 @@ export class UsersState {
     runInAction('querySuccess', ()=>{
       if(data) {
         this.list = data.data
-        Object.assign(this.pageination, data.page)
+        Object.assign(this.pagination, data.page)
       }
     })
   }
@@ -64,7 +58,7 @@ export class UsersState {
     runInAction('deleteSuccess', ()=>{
       if(data && data.success) {
         this.list = data.data
-        Object.assign(this.pageination, data.page)
+        Object.assign(this.pagination, data.page)
       }
     })
   }
@@ -76,7 +70,7 @@ export class UsersState {
     runInAction('createSuccess', ()=>{
       if(data && data.success) {
         this.list = data.data
-        Object.assign(this.pageination, data.page)
+        Object.assign(this.pagination, data.page)
       }
     })
   }
@@ -89,7 +83,7 @@ export class UsersState {
     const data = await update(newUser)
     runInAction('updateSuccess', ()=>{
       this.list = data.data
-      Object.assign(this.pageination, data.page)
+      Object.assign(this.pagination, data.page)
     })
   }
 
@@ -100,7 +94,13 @@ export class UsersState {
   }
 
   @action.bound
-  showModal() { this.modalVisible = true }
+  showModal(type: string, currentItem?: IUser) {
+    this.modalType = type
+    this.modalVisible = true
+    if(currentItem) {
+      this.currentItem = currentItem
+    }
+  }
 
   @action.bound
   hideModal() { this.modalVisible = false }

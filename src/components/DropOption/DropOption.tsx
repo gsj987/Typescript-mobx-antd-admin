@@ -9,8 +9,8 @@ interface IMenuItem {
 interface IProps {
   onMenuClick: any,
   menuOptions: Array<IMenuItem>,
-  buttonStyle: object | null,
-  dropdownProps: any
+  buttonStyle?: object | null,
+  dropdownProps?: any
 }
 
 const DropOption = ({ onMenuClick, menuOptions = [], buttonStyle, dropdownProps }: IProps) => {
