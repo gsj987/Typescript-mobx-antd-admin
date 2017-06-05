@@ -3,7 +3,16 @@ import { Icon, Card } from 'antd'
 import CountUp from 'react-countup'
 import styles from './numberCard.less'
 
-function NumberCard ({ icon, color, title, number, countUp }) {
+
+interface IProps {
+  icon: string,
+  color: string,
+  title: string,
+  number: number,
+  countUp: any
+}
+
+function NumberCard ({ icon, color, title, number, countUp }: IProps) {
   return (
     <Card className={styles.numberCard} bordered={false} bodyStyle={{ padding: 0 }}>
       <Icon className={styles.iconWarp} style={{ color }} type={icon} />
@@ -25,12 +34,5 @@ function NumberCard ({ icon, color, title, number, countUp }) {
   )
 }
 
-NumberCard.propTypes = {
-  icon: PropTypes.string,
-  color: PropTypes.string,
-  title: PropTypes.string,
-  number: PropTypes.number,
-  countUp: PropTypes.object,
-}
 
-export default NumberCard
+export { NumberCard }

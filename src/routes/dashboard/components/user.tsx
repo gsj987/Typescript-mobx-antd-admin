@@ -3,6 +3,8 @@ import { Button } from 'antd'
 import styles from './user.less'
 import CountUp from 'react-countup'
 import { color } from '../../../utils'
+import { IUser } from '../../../models/users'
+
 const countUpProps = {
   start: 0,
   duration: 2.75,
@@ -11,7 +13,8 @@ const countUpProps = {
   separator: ',',
 }
 
-function User ({ avatar, name, email, sales, sold }) {
+
+function User ({ avatar, name, email, sales, sold }: IUser) {
   return (<div className={styles.user}>
     <div className={styles.header}>
       <div className={styles.headerinner}>
@@ -43,12 +46,4 @@ function User ({ avatar, name, email, sales, sold }) {
   </div>)
 }
 
-User.propTypes = {
-  avatar: PropTypes.string,
-  name: PropTypes.string,
-  email: PropTypes.string,
-  sales: PropTypes.number,
-  sold: PropTypes.number,
-}
-
-export default User
+export { User }

@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
-import { connect } from 'dva'
 import { Row, Col, Card } from 'antd'
 import { NumberCard, Quote, Sales, Weather, RecentSales, Comments, Completed, Browser, Cpu, User } from './components'
 import styles from './index.less'
 import { color } from '../../utils'
+import { IDashboardStore } from '../../models/dashboard'
 
 const bodyStyle = {
   bodyStyle: {
@@ -12,7 +12,11 @@ const bodyStyle = {
   },
 }
 
-function Dashboard ({ dashboard }) {
+interface IProps {
+  dashboard: IDashboardStore
+}
+
+function Dashboard ({ dashboard }: IProps ) {
   const { weather, sales, quote, numbers, recentSales, comments, completed, browser, cpu, user } = dashboard
   const numberCards = numbers.map((item, key) => <Col key={key} lg={6} md={12}>
     <NumberCard {...item} />
@@ -86,8 +90,5 @@ function Dashboard ({ dashboard }) {
   )
 }
 
-Dashboard.propTypes = {
-  dashboard: PropTypes.object,
-}
 
-export default connect(({ dashboard }) => ({ dashboard }))(Dashboard)
+export { Dashboard }

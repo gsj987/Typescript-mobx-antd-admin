@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Table, Tag } from 'antd'
 import styles from './browser.less'
 import { color } from '../../../utils'
+import { IColumn } from '../../../typings/tables'
 
 const status = {
   1: {
@@ -18,8 +19,21 @@ const status = {
   },
 }
 
-function Browser ({ data }) {
-  const columns = [
+interface IData {
+  name: string,
+  percent: string,
+  status: number
+}
+
+interface IProps {
+  data: Array<IData>
+}
+
+class BTable extends Table<IData> {}
+
+
+function Browser ({ data }: IProps) {
+  const columns: Array<IColumn> = [
     {
       title: 'name',
       dataIndex: 'name',
@@ -31,11 +45,13 @@ function Browser ({ data }) {
       render: (text, it) => <Tag color={status[it.status].color}>{text}%</Tag>,
     },
   ]
-  return <Table pagination={false} showHeader={false} columns={columns} rowKey={(record, key) => key} dataSource={data} />
+  return <BTable
+    pagination={false}
+    showHeader={false}
+    columns={columns}
+    rowKey={(record: IData, key: number) => key.toString()}
+    dataSource={data} />
 }
 
-Browser.propTypes = {
-  data: PropTypes.array,
-}
 
-export default Browser
+export { Browser }

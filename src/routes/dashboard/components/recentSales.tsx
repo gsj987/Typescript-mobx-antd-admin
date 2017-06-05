@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Table, Tag } from 'antd'
 import styles from './recentSales.less'
 import { color } from '../../../utils'
+import { IColumn } from '../../../typings/tables'
 
 const status = {
   1: {
@@ -22,19 +23,21 @@ const status = {
   },
 }
 
+class RTable extends Table<any> {}
+
 function RecentSales ({ data }) {
-  const columns = [
+  const columns: Array<IColumn> = [
     {
       title: 'NAME',
       dataIndex: 'name',
     }, {
       title: 'STATUS',
       dataIndex: 'status',
-      render: text => <Tag color={status[text].color}>{status[text].text}</Tag>,
+      render: (text,_) => <Tag color={status[text].color}>{status[text].text}</Tag>,
     }, {
       title: 'DATE',
       dataIndex: 'date',
-      render: text => new Date(text).format('yyyy-MM-dd'),
+      render: (text,_) => <span>{new Date(text).format('yyyy-MM-dd')}</span>,
     }, {
       title: 'PRICE',
       dataIndex: 'price',
@@ -43,13 +46,9 @@ function RecentSales ({ data }) {
   ]
   return (
     <div className={styles.recentsales}>
-      <Table pagination={false} columns={columns} rowKey={(record, key) => key} dataSource={data.filter((item, key) => key < 5)} />
+      <RTable pagination={false} columns={columns} rowKey={(record, key) => key.toString()} dataSource={data.filter((item, key) => key < 5)} />
     </div>
   )
 }
 
-RecentSales.propTypes = {
-  data: PropTypes.array,
-}
-
-export default RecentSales
+export { RecentSales }

@@ -12,7 +12,14 @@ const countUpProps = {
   separator: ',',
 }
 
-function Cpu ({ usage, space, cpu, data }) {
+interface IProps {
+  usage: number,
+  space: number,
+  cpu: number,
+  data: Array<any>
+}
+
+function Cpu ({ usage, space, cpu, data }: IProps) {
   return (<div className={styles.cpu}>
     <div className={styles.number}>
       <div className={styles.item}>
@@ -51,11 +58,4 @@ function Cpu ({ usage, space, cpu, data }) {
   </div>)
 }
 
-Cpu.propTypes = {
-  data: PropTypes.array,
-  usage: PropTypes.number,
-  space: PropTypes.number,
-  cpu: PropTypes.number,
-}
-
-export default Cpu
+export { Cpu }

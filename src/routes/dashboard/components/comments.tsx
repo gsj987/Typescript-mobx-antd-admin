@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Table, Tag } from 'antd'
 import styles from './comments.less'
 import { color } from '../../../utils'
+import { IColumn } from '../../../typings/tables'
 
 const status = {
   1: {
@@ -18,8 +19,10 @@ const status = {
   },
 }
 
+class CTable extends Table<any> {}
+
 function Comments ({ data }) {
-  const columns = [
+  const columns: Array<IColumn> = [
     {
       title: 'avatar',
       dataIndex: 'avatar',
@@ -41,13 +44,14 @@ function Comments ({ data }) {
   ]
   return (
     <div className={styles.comments}>
-      <Table pagination={false} showHeader={false} columns={columns} rowKey={(record, key) => key} dataSource={data.filter((item, key) => key < 3)} />
+      <CTable
+      pagination={false}
+      showHeader={false}
+      columns={columns}
+      rowKey={(record, key) => key.toString()}
+      dataSource={data.filter((item, key) => key < 3)} />
     </div>
   )
 }
 
-Comments.propTypes = {
-  data: PropTypes.array,
-}
-
-export default Comments
+export { Comments }

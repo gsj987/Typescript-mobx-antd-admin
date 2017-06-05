@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
-import styles from './completed.less'
+import styles from './sales.less'
 import classnames from 'classnames'
 import { color } from '../../../utils'
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-function Completed ({ data }) {
+function Sales ({ data }) {
   return (
     <div className={styles.sales}>
-      <div className={styles.title}>TEAM TOTAL COMPLETED</div>
+      <div className={styles.title}>Yearly Sales</div>
       <ResponsiveContainer minHeight={360}>
-        <AreaChart data={data}>
+        <LineChart data={data}>
           <Legend verticalAlign="top"
             content={prop => {
               const { payload } = prop
@@ -28,16 +28,13 @@ function Completed ({ data }) {
               return <div className={styles.tooltip}><p className={styles.tiptitle}>{content.label}</p><ul>{list}</ul></div>
             }}
           />
-          <Area type="monotone" dataKey="Task complete" stroke={color.grass} fill={color.grass} strokeWidth={2} dot={{ fill: '#fff' }} activeDot={{ r: 5, fill: '#fff', stroke: color.green }} />
-          <Area type="monotone" dataKey="Cards Complete" stroke={color.sky} fill={color.sky} strokeWidth={2} dot={{ fill: '#fff' }} activeDot={{ r: 5, fill: '#fff', stroke: color.blue }} />
-        </AreaChart>
+          <Line type="monotone" dataKey="Food" stroke={color.purple} strokeWidth={3} dot={{ fill: color.purple }} activeDot={{ r: 5, strokeWidth: 0 }} />
+          <Line type="monotone" dataKey="Clothes" stroke={color.red} strokeWidth={3} dot={{ fill: color.red }} activeDot={{ r: 5, strokeWidth: 0 }} />
+          <Line type="monotone" dataKey="Electronics" stroke={color.green} strokeWidth={3} dot={{ fill: color.green }} activeDot={{ r: 5, strokeWidth: 0 }} />
+        </LineChart>
       </ResponsiveContainer>
     </div>
   )
 }
 
-Completed.propTypes = {
-  data: PropTypes.array,
-}
-
-export default Completed
+export { Sales }

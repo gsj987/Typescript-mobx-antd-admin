@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react'
-import styles from './sales.less'
+import styles from './completed.less'
 import classnames from 'classnames'
 import { color } from '../../../utils'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 
-function Sales ({ data }) {
+function Completed ({ data }) {
   return (
     <div className={styles.sales}>
-      <div className={styles.title}>Yearly Sales</div>
+      <div className={styles.title}>TEAM TOTAL COMPLETED</div>
       <ResponsiveContainer minHeight={360}>
-        <LineChart data={data}>
+        <AreaChart data={data}>
           <Legend verticalAlign="top"
             content={prop => {
               const { payload } = prop
@@ -28,17 +28,13 @@ function Sales ({ data }) {
               return <div className={styles.tooltip}><p className={styles.tiptitle}>{content.label}</p><ul>{list}</ul></div>
             }}
           />
-          <Line type="monotone" dataKey="Food" stroke={color.purple} strokeWidth={3} dot={{ fill: color.purple }} activeDot={{ r: 5, strokeWidth: 0 }} />
-          <Line type="monotone" dataKey="Clothes" stroke={color.red} strokeWidth={3} dot={{ fill: color.red }} activeDot={{ r: 5, strokeWidth: 0 }} />
-          <Line type="monotone" dataKey="Electronics" stroke={color.green} strokeWidth={3} dot={{ fill: color.green }} activeDot={{ r: 5, strokeWidth: 0 }} />
-        </LineChart>
+          <Area type="monotone" dataKey="Task complete" stroke={color.grass} fill={color.grass} strokeWidth={2} dot={{ fill: '#fff' }} activeDot={{ r: 5, fill: '#fff', stroke: color.green }} />
+          <Area type="monotone" dataKey="Cards Complete" stroke={color.sky} fill={color.sky} strokeWidth={2} dot={{ fill: '#fff' }} activeDot={{ r: 5, fill: '#fff', stroke: color.blue }} />
+        </AreaChart>
       </ResponsiveContainer>
     </div>
   )
 }
 
-Sales.propTypes = {
-  data: PropTypes.array,
-}
 
-export default Sales
+export { Completed }

@@ -6,7 +6,18 @@ export interface IUser {
   id?: number,
   username?: string,
   password?: string,
-  permissions?: Array<string>
+  permissions?: Array<string>,
+  key?: string,
+  name?: string
+  nickName?: string,
+  age?: number,
+  phone?: string,
+  isMale?: boolean,
+  email?: string,
+  address?: string,
+  avatar?: string,
+  sold?: number,
+  sales?: number
 }
 
 

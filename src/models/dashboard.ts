@@ -173,20 +173,34 @@ let zuimei = {
   },
 }
 
+interface INumber {
+  icon: string,
+  color: string,
+  title: string,
+  number: number,
+  countUp: any
+}
 
-
-interface IDashboardStore {
+export interface IDashboardStore {
   weather: IWeather,
   sales: Array<never>,
   quote: {
-    avatar: string
+    avatar: string,
+    name: string,
+    content: string,
+    title: string,
   },
-  numbers: Array<never>,
+  numbers: Array<INumber>,
   recentSales: Array<never>,
   comments: Array<never>,
   completed: Array<never>,
   browser: Array<never>,
-  cpu: Array<never>,
+  cpu: {
+    usage: number,
+    space: number,
+    cpu: number,
+    data: Array<any>
+  },
   user: {
     avatar: string
   },
@@ -201,13 +215,21 @@ export class DashboardStore implements IDashboardStore {
   @observable sales = []
   @observable quote = {
     avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
+    name: '',
+    content: '',
+    title: '',
   }
   @observable numbers = []
   @observable recentSales = []
   @observable comments = []
   @observable completed = []
   @observable browser = []
-  @observable cpu = []
+  @observable cpu = {
+    usage: 0,
+    space: 0,
+    cpu: 0,
+    data: []
+  }
   @observable user = {
     avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
   }

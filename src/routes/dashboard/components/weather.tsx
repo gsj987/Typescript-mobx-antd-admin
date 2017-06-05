@@ -1,7 +1,15 @@
 import React, { PropTypes } from 'react'
 import styles from './weather.less'
 
-function Weather ({ city, icon, dateTime, temperature, name }) {
+interface IProps {
+  city: string,
+  icon: string,
+  dateTime: string,
+  temperature: string,
+  name: string
+}
+
+function Weather ({ city, icon, dateTime, temperature, name }: IProps) {
   return (<div className={styles.weather}>
     <div className={styles.left}>
       <div className={styles.icon} style={{
@@ -16,12 +24,4 @@ function Weather ({ city, icon, dateTime, temperature, name }) {
   </div>)
 }
 
-Weather.propTypes = {
-  city: PropTypes.string,
-  icon: PropTypes.string,
-  dateTime: PropTypes.string,
-  temperature: PropTypes.string,
-  name: PropTypes.string,
-}
-
-export default Weather
+export { Weather }

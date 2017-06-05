@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { WrappedFormUtils } from 'antd/lib/form/Form'
 import { ModalProps } from 'antd/lib/modal/modal'
 import { Form, Input, InputNumber, Radio, Modal } from 'antd'
+import { IUser } from '../../models/users'
 const FormItem = Form.Item
 
 const formItemLayout = {
@@ -13,16 +14,6 @@ const formItemLayout = {
   },
 }
 
-interface IUser {
-  key?: string,
-  name?: string
-  nickName?: string,
-  age?: number,
-  phone?: string,
-  isMale?: boolean,
-  email?: string,
-  address?: string,
-}
 
 export interface IProps {
   visible: boolean,
