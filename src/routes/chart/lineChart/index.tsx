@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Row, Col, Card, Button } from 'antd'
-import Container from '../Container'
+import { Container } from '../Container'
 import {
   LineChart,
   Line,
@@ -114,8 +114,14 @@ const DashedLineChart = () => (
   </Container>
 )
 
+interface ICustomizedDotProps {
+  cx?: number,
+  cy?: number,
+  payload?: any
+}
+
 // CustomizedDotLineChart
-const CustomizedDot = ({ cx, cy, payload }) => {
+const CustomizedDot = ({ cx = 0, cy = 0, payload }: ICustomizedDotProps) => {
   if (payload.value > 2500) {
     return (
       <svg x={cx - 10} y={cy - 10} width={20} height={20} fill="red" viewBox="0 0 1024 1024">
@@ -131,11 +137,6 @@ const CustomizedDot = ({ cx, cy, payload }) => {
   )
 }
 
-CustomizedDot.propTypes = {
-  cx: PropTypes.number,
-  cy: PropTypes.number,
-  payload: PropTypes.object,
-}
 
 const CustomizedDotLineChart = () => (
   <Container>
@@ -156,7 +157,7 @@ const CustomizedDotLineChart = () => (
   </Container>
 )
 
-const EditorPage = () => (
+const LineChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -190,4 +191,4 @@ const EditorPage = () => (
   </div>
 )
 
-export default EditorPage
+export { LineChart }

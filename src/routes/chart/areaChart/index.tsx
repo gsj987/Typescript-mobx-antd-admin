@@ -1,6 +1,6 @@
 import React from 'react'
 import { Row, Col, Card, Button } from 'antd'
-import Container from '../Container'
+import { Container } from '../Container'
 import * as d3 from 'd3-shape'
 import {
   AreaChart,
@@ -242,7 +242,7 @@ const CardinalAreaChart = () => (
   </Container>
 )
 
-const EditorPage = () => (
+const AreaChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -276,4 +276,4 @@ const EditorPage = () => (
   </div>
 )
 
-export default EditorPage
+export { AreaChart }

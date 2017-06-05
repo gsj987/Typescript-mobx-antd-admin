@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Row, Col, Card, Button } from 'antd'
-import Container from '../Container'
+import { Container } from '../Container'
 import {
   BarChart,
   Bar,
@@ -159,18 +159,20 @@ const getPath = (x, y, width, height) => {
         Z`
 }
 
-const TriangleBar = (props) => {
+
+interface ITriangleBarProps {
+  fill?: any,
+  x?: number,
+  y?: number,
+  width?: number,
+  height?: number,
+}
+
+const TriangleBar = (props: ITriangleBarProps) => {
   const { fill, x, y, width, height } = props
   return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />
 }
 
-TriangleBar.propTypes = {
-  fill: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
-}
 
 const CustomShapeBarChart = () => (
   <Container>
@@ -188,7 +190,7 @@ const CustomShapeBarChart = () => (
   </Container>
 )
 
-const EditorPage = () => (
+const BarChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -222,4 +224,4 @@ const EditorPage = () => (
   </div>
 )
 
-export default EditorPage
+export { BarChart }
