@@ -1,6 +1,6 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { myCity, queryWeather, query } from '../services/dashboard'
-
+import { IStore } from './istore'
 
 interface IWeather {
   city: string,
@@ -181,7 +181,7 @@ interface INumber {
   countUp: any
 }
 
-export interface IDashboardStore {
+export interface IDashboardStore extends IStore {
   weather: IWeather,
   sales: Array<never>,
   quote: {
@@ -211,6 +211,8 @@ export interface IDashboardStore {
 
 
 export class DashboardStore implements IDashboardStore {
+  namespace = 'dashboard'
+
   @observable weather:IWeather
   @observable sales = []
   @observable quote = {
@@ -253,3 +255,7 @@ export class DashboardStore implements IDashboardStore {
     })
   }
 }
+
+
+const dashboardStore = new DashboardStore()
+export { dashboardStore as default }

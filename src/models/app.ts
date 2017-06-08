@@ -1,9 +1,11 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { getUserInfo, logout } from '../services/app'
 import { config } from '../utils'
+import { RouterStore } from 'mobx-react-router'
 const { prefix } = config
+import { IStore } from './istore'
 
-export interface IAppStore {
+export interface IAppStore extends IStore {
   user: any,
   loginButtonLoading: boolean,
   menuPopoverVisible: boolean,
@@ -21,7 +23,9 @@ export interface IAppStore {
   handleNavOpenKeys: (navOpenKeys: Array<string>) => void,
 }
 
-class AppStore implements IAppStore{
+export class AppStore implements IAppStore{
+  namespace = "app"
+
   @observable user: any = {};
   @observable loginButtonLoading: boolean = false;
   @observable menuPopoverVisible: boolean = false;
@@ -30,6 +34,12 @@ class AppStore implements IAppStore{
   @observable isNavbar: boolean = document.body.clientWidth < 769;
   @observable navOpenKeys: Array<string> = [];
 
+  router: RouterStore;
+
+  constructor(router: RouterStore) {
+    this.router = router
+  }
+
   @action.bound
   async queryUser(payload: any) {
     const data = await getUserInfo(payload);
@@ -37,16 +47,13 @@ class AppStore implements IAppStore{
     runInAction('queryUserSuccess', () => {
       if (data.success && data.user) {
         this.user = data.user
-        if (location.pathname === '/login') {
-          window.location.href = '/dashboard'
+        if (this.router.location && (this.router.location.pathname === '/login')) {
+          this.router.push('/dashboard')
         }
       } else {
-        if (location.pathname !== '/login') {
-          let from = location.pathname
-          if (location.pathname === '/dashboard') {
-            from = '/dashboard'
-          }
-          window.location.href = `${location.origin}/login?from=${from}`
+        if (this.router.location && (this.router.location.pathname !== '/login')) {
+          let from = this.router.location.pathname
+          this.router.push(`/login?from=${from}`)
         }
       }
     })

@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { render } from 'react-dom'
-import { Router, Route, hashHistory } from 'react-router'
+import { Router, Route } from 'react-router'
+import createHashHistory from 'history'
 
 interface ILoader {
   router(routes?: IRoute[]): void
@@ -42,7 +43,7 @@ export default class Loader implements ILoader {
     }
     const $routes = (routes || this.$config.routes || new Array<IRoute>()).map(route => loop(route))
     this.$router = (
-      <Router history={hashHistory} routes={$routes} />
+      <Router  routes={$routes} />
     )
   }
 

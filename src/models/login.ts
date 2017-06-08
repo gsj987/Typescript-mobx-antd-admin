@@ -1,13 +1,16 @@
 import { login } from '../services/login'
 import { observable, computed, action, runInAction } from 'mobx'
 import { queryURL } from '../utils'
+import { IStore } from './istore'
 
-export interface ILoginStore {
+export interface ILoginStore extends IStore {
   loginLoading: boolean,
   login: (payload: any) => void
 }
 
 export class LoginState implements ILoginStore {
+  namespace = 'login'
+
   @observable loginLoading: boolean = false;
 
   @action.bound
@@ -29,3 +32,7 @@ export class LoginState implements ILoginStore {
     })
   }
 }
+
+
+const loginStore = new LoginState()
+export { loginStore as default }

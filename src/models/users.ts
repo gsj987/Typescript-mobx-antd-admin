@@ -1,6 +1,7 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { create, remove, update, query } from '../services/users'
 import { PaginationProps } from 'antd/lib/pagination'
+import { IStore } from './istore'
 
 export interface IUser {
   id?: number,
@@ -21,7 +22,7 @@ export interface IUser {
 }
 
 
-export interface IUsersStore {
+export interface IUsersStore extends IStore {
   list:Array<IUser>,
   currentItem: IUser,
   modalVisible: boolean,
@@ -39,6 +40,8 @@ export interface IUsersStore {
 }
 
 export class UsersStore implements IUsersStore {
+  namespace = 'user'
+
   @observable list:Array<IUser> = []
   @observable currentItem:IUser
   @observable modalVisible:boolean = false
@@ -116,3 +119,6 @@ export class UsersStore implements IUsersStore {
   @action.bound
   hideModal() { this.modalVisible = false }
 }
+
+const usersStore = new UsersStore()
+export { usersStore as default }

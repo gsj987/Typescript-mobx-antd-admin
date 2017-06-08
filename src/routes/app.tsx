@@ -4,6 +4,7 @@ import { classnames, config } from '../utils'
 import { IAppStore } from '../models/app'
 import { Helmet } from 'react-helmet'
 import '../themes/index.less'
+import { inject, observer } from 'mobx-react'
 
 const { Header, Bread, Footer, Sider, styles } = Layout
 
@@ -14,7 +15,8 @@ interface IAppProps {
   app: IAppStore
 }
 
-const App = ({ children, location, app }: IAppProps) => {
+
+const App = inject('app')(observer(({ children, location, app }: IAppProps) => {
   const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = app
 
   const headerProps = {
@@ -82,6 +84,6 @@ const App = ({ children, location, app }: IAppProps) => {
     </div>
   )
 }
-
+))
 
 export { App }

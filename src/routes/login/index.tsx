@@ -3,6 +3,7 @@ import { Button, Row, Form, Input } from 'antd'
 import { WrappedFormUtils } from 'antd/lib/form/Form'
 import { config } from '../../utils'
 import { ILoginStore } from '../../models/login'
+import { inject, observer } from 'mobx-react'
 import styles from './index.less'
 
 const FormItem = Form.Item
@@ -12,6 +13,9 @@ interface IPros {
   form: WrappedFormUtils
 }
 
+
+@inject('login')
+@observer
 @Form.create<IPros>()
 class Login extends React.Component<IPros, any>{
 
