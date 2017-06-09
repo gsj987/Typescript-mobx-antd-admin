@@ -156,4 +156,4 @@ class DataTablePage extends React.Component<IProps, IState> {
 }
 
 
-export { DataTablePage }
+export { DataTablePage as default }

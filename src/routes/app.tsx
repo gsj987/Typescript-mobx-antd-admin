@@ -86,4 +86,4 @@ const App = inject('app')(observer(({ children, location, app }: IAppProps) => {
 }
 ))
 
-export { App }
+export { App as default }

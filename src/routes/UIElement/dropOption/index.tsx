@@ -96,4 +96,4 @@ const DropOptionPage = () => <div className="content-inner">
   </Row>
 </div>
 
-export { DropOptionPage }
+export { DropOptionPage as default }

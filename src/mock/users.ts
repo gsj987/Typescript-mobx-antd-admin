@@ -1,6 +1,6 @@
-const qs = require('qs')
-const Mock = require('mockjs')
-const config = require('../utils/config')
+import qs from 'qs'
+import Mock from 'mockjs'
+import config from '../utils/config'
 const { apiPrefix } = config
 
 let usersListData = Mock.mock({

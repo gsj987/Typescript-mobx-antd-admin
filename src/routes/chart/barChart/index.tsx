@@ -190,7 +190,7 @@ const CustomShapeBarChart = () => (
   </Container>
 )
 
-const BarChart = () => (
+const CBarChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -224,4 +224,4 @@ const BarChart = () => (
   </div>
 )
 
-export { BarChart }
+export { CBarChart as default }

@@ -242,7 +242,7 @@ const CardinalAreaChart = () => (
   </Container>
 )
 
-const AreaChart = () => (
+const CAreaChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -276,4 +276,4 @@ const AreaChart = () => (
   </div>
 )
 
-export { AreaChart }
+export { CAreaChart as default }

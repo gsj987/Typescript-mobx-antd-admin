@@ -10,7 +10,7 @@ interface IState {
   editorContent: any
 }
 
-export class EditorPage extends React.Component<any, IState> {
+export default class EditorPage extends React.Component<any, IState> {
   constructor (props) {
     super(props)
     this.state = {

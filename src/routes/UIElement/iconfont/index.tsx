@@ -9,7 +9,7 @@ class ITable extends Table<any> {}
 
 const IcoPage = () => <div className="content-inner">
   <ul className={styles.list}>
-    {iconlist.map(item => <li key={item}><Iconfont className={styles.icon} type={item} /><span className={styles.name}>{item}</span></li>)}
+    {iconlist.map(item => <li key={item}><Iconfont className='iconfont' type={item} /><span className={styles.name}>{item}</span></li>)}
   </ul>
   <h2 style={{ margin: '16px 0' }}>Props</h2>
   <Row>
@@ -49,4 +49,4 @@ const IcoPage = () => <div className="content-inner">
   </Row>
 </div>
 
-export default IcoPage
+export { IcoPage as default }

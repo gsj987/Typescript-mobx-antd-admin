@@ -16,10 +16,10 @@ config.output = assign(config.output, {
 config.plugins.push(
   new ExtractTextPlugin('style/[name].css'),
   new HtmlwebpackPlugin({
-    filename: 'dist/index.html',
+    filename: 'index.html',
     template: 'src/index.html',
     inject: 'body',
-    dllName: DLLConfig.lib.js
+    dllName: DllConfig.lib.js
   }),
   new webpack.HotModuleReplacementPlugin()
 )

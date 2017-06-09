@@ -97,4 +97,4 @@ const SearchPage = () => <div className="content-inner">
   </Row>
 </div>
 
-export { SearchPage }
+export { SearchPage as default }

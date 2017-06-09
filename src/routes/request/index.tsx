@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.less'
-const Mock = require('mockjs')
+import Mock from 'mockjs'
 import { request, config } from '../../utils'
 import {
   Row,
@@ -113,7 +113,7 @@ interface IState {
   result: any
 }
 
-export class RequestPage extends React.Component<any, IState> {
+class RequestPage extends React.Component<any, IState> {
 
   constructor (props) {
     super(props)
@@ -211,3 +211,5 @@ export class RequestPage extends React.Component<any, IState> {
     )
   }
 }
+
+export { RequestPage as default }

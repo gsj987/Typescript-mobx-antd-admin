@@ -91,4 +91,4 @@ function Dashboard ({ dashboard }: IProps ) {
 }
 
 
-export { Dashboard }
+export { Dashboard as default }

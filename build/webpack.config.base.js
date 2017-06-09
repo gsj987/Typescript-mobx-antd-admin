@@ -6,9 +6,6 @@ const front = join(root, 'src')
 const dist = join(root, 'dist')
 const pkg = require(join(root, 'package.json'))
 
-const entry = name => {
-  return join(front, 'routers', name, 'index')
-}
 
 module.exports = {
   entry: {
@@ -16,7 +13,7 @@ module.exports = {
   },
   output: {
     path: dist,
-    publicPath: 'dist',
+    publicPath: '',
   },
   resolve: {
     extensions: [ '.ts', '.tsx', '.js', '.json', '.jsx' ],
@@ -37,7 +34,11 @@ module.exports = {
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ])
+        loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader?module&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:8]', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ])
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        loader: `file-loader?name=style/[name]-[hash].[ext]`
       }
     ]
   },

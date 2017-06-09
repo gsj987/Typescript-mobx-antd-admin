@@ -73,4 +73,4 @@ class Login extends React.Component<IPros, any>{
 }
 
 
-export { Login }
+export { Login as default }

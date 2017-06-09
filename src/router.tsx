@@ -4,6 +4,8 @@ import App from './routes/app'
 import { RouterStore, SynchronizedHistory } from 'mobx-react-router'
 import { Loader } from './loader'
 
+declare var require: Require
+
 export interface IRouters {
   history: SynchronizedHistory,
   app: Loader

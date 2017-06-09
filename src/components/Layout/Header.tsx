@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Menu, Icon, Popover } from 'antd'
 import styles from './Header.less'
-import Menus from './Menu'
+import { Menus } from './Menu'
 
 const SubMenu = Menu.SubMenu
 

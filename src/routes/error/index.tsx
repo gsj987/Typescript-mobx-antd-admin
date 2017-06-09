@@ -9,4 +9,4 @@ const Error = () => <div className="content-inner">
   </div>
 </div>
 
-export { Error }
+export { Error as default }

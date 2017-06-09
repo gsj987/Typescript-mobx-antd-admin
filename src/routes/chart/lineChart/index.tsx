@@ -157,7 +157,7 @@ const CustomizedDotLineChart = () => (
   </Container>
 )
 
-const LineChart = () => (
+const CLineChart = () => (
   <div className="content-inner">
     <Button type="primary" size="large" style={{
       position: 'absolute',
@@ -191,4 +191,4 @@ const LineChart = () => (
   </div>
 )
 
-export { LineChart }
+export { CLineChart as default }

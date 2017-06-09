@@ -89,4 +89,4 @@ const Users = inject('users')(observer(
   }
 ))
 
-export { Users }
+export { Users as default }

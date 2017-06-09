@@ -8,7 +8,7 @@ let Enum = {
 
 class ITable extends Table<any>{}
 
-const IcoPage = () => {
+const Layer = () => {
   const handleButtonClick = (key) => {
     if (key === Enum.default) {
       layer.open({
@@ -144,4 +144,4 @@ const IcoPage = () => {
   </div>)
 }
 
-export { IcoPage }
+export { Layer  as default }
