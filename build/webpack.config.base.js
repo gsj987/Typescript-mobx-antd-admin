@@ -8,9 +8,9 @@ const pkg = require(join(root, 'package.json'))
 
 
 module.exports = {
-  entry: {
-    index: join(front, 'index')
-  },
+  entry: [
+    join(front, 'index')
+  ],
   output: {
     path: dist,
     publicPath: '',

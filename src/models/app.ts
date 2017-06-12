@@ -38,6 +38,10 @@ export class AppStore implements IAppStore{
 
   constructor(router: RouterStore) {
     this.router = router
+    // 自动调整页面
+    window.onresize = () => {
+      this.changeNavbar()
+    }
   }
 
   @action.bound

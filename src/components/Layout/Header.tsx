@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Menu, Icon, Popover } from 'antd'
 import styles from './Header.less'
 import { Menus } from './Menu'
+import { Location } from 'mobx-react-router'
 
 const SubMenu = Menu.SubMenu
 

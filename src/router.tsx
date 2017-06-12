@@ -18,8 +18,8 @@ const Routers = function ({ history, app }: IRouters): JSX.Element {
       component: App,
       getIndexRoute (nextState, cb) {
         require.ensure([], require => {
-          app.registerModel(require('./models/dashboard'))
-          cb(null, { component: require<any>('./routes/dashboard/') })
+          app.registerModel(require<any>('./models/dashboard').default)
+          cb(null, { component: require<any>('./routes/dashboard/').default })
         }, 'dashboard')
       },
       childRoutes: [
@@ -27,101 +27,101 @@ const Routers = function ({ history, app }: IRouters): JSX.Element {
           path: 'dashboard',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              app.registerModel(require('./models/dashboard'))
-              cb(null, require<any>('./routes/dashboard/'))
+              app.registerModel(require<any>('./models/dashboard').default)
+              cb(null, require<any>('./routes/dashboard/').default)
             }, 'dashboard')
           },
         }, {
           path: 'users',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              app.registerModel(require('./models/users'))
-              cb(null, require<any>('./routes/users/'))
+              app.registerModel(require<any>('./models/users').default)
+              cb(null, require<any>('./routes/users/').default)
             }, 'users')
           },
         }, {
           path: 'login',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              app.registerModel(require('./models/login'))
-              cb(null, require<any>('./routes/login/'))
+              app.registerModel(require<any>('./models/login').default)
+              cb(null, require<any>('./routes/login/').default)
             }, 'login')
           },
         }, {
           path: 'request',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/request/'))
+              cb(null, require<any>('./routes/request/').default)
             }, 'request')
           },
         }, {
           path: 'UIElement/iconfont',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/iconfont/'))
+              cb(null, require<any>('./routes/UIElement/iconfont/').default)
             }, 'UIElement-iconfont')
           },
         }, {
           path: 'UIElement/search',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/search/'))
+              cb(null, require<any>('./routes/UIElement/search/').default)
             }, 'UIElement-search')
           },
         }, {
           path: 'UIElement/dropOption',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/dropOption/'))
+              cb(null, require<any>('./routes/UIElement/dropOption/').default)
             }, 'UIElement-dropOption')
           },
         }, {
           path: 'UIElement/layer',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/layer/'))
+              cb(null, require<any>('./routes/UIElement/layer/').default)
             }, 'UIElement-layer')
           },
         }, {
           path: 'UIElement/dataTable',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/dataTable/'))
+              cb(null, require<any>('./routes/UIElement/dataTable/').default)
             }, 'UIElement-dataTable')
           },
         }, {
           path: 'UIElement/editor',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/UIElement/editor/'))
+              cb(null, require<any>('./routes/UIElement/editor/').default)
             }, 'UIElement-editor')
           },
         }, {
           path: 'chart/lineChart',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/chart/lineChart/'))
+              cb(null, require<any>('./routes/chart/lineChart/').default)
             }, 'chart-lineChart')
           },
         }, {
           path: 'chart/barChart',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/chart/barChart/'))
+              cb(null, require<any>('./routes/chart/barChart/').default)
             }, 'chart-barChart')
           },
         }, {
           path: 'chart/areaChart',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/chart/areaChart/'))
+              cb(null, require<any>('./routes/chart/areaChart/').default)
             }, 'chart-areaChart')
           },
         }, {
           path: '*',
           getComponent (nextState, cb) {
             require.ensure([], require => {
-              cb(null, require<any>('./routes/error/'))
+              cb(null, require<any>('./routes/error/').default)
             }, 'error')
           },
         },

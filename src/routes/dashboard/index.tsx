@@ -4,19 +4,21 @@ import { NumberCard, Quote, Sales, Weather, RecentSales, Comments, Completed, Br
 import styles from './index.less'
 import { color } from '../../utils'
 import { IDashboardStore } from '../../models/dashboard'
+import { observer } from 'mobx-react'
+import { inject } from '../../loader'
 
 const bodyStyle = {
   bodyStyle: {
     height: 432,
     background: '#fff',
-  },
+  }
 }
 
 interface IProps {
   dashboard: IDashboardStore
 }
 
-function Dashboard ({ dashboard }: IProps ) {
+const Dashboard = inject('dashboard')(observer(({ dashboard }: IProps ) => {
   const { weather, sales, quote, numbers, recentSales, comments, completed, browser, cpu, user } = dashboard
   const numberCards = numbers.map((item, key) => <Col key={key} lg={6} md={12}>
     <NumberCard {...item} />
@@ -88,7 +90,7 @@ function Dashboard ({ dashboard }: IProps ) {
       </Col>
     </Row>
   )
-}
+}))
 
 
 export { Dashboard as default }

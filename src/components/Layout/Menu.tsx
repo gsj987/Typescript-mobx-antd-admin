@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'react-router'
 import { menu } from '../../utils'
+import { Location } from 'mobx-react-router'
 
 const topMenus = menu.map(item => item.key)
 const getMenus = function (menuArray: typeof menu, siderFold: boolean, parentPath = '/'): Array<JSX.Element> {

@@ -6,9 +6,14 @@
 var webpack          = require('webpack');
 var WebpackDevServer = require('webpack-dev-server');
 var config           = require('./webpack.config.dev');
+
+config.entry = [
+    'webpack-dev-server/client?http://localhost:9090',
+    'webpack/hot/only-dev-server'
+].concat(config.entry)
+
 // "dev": "webpack-dev-server --devtool eval --progress --colors --hot  --content-base build",
 new WebpackDevServer(webpack(config), {
-    devtool: config.devtool,
     contentBase: config.output.path,
     publicPath: config.output.publicPath,
     quiet: false,

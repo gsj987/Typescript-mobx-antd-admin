@@ -3,6 +3,7 @@ import { Icon, Switch } from 'antd'
 import styles from './Layout.less'
 import { config } from '../../utils'
 import { Menus } from './Menu'
+import { Location } from 'mobx-react-router'
 
 
 interface IProps {

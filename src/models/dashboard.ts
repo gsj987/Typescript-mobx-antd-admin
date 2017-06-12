@@ -216,7 +216,7 @@ export class DashboardStore implements IDashboardStore {
   @observable weather:IWeather
   @observable sales = []
   @observable quote = {
-    avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
+    avatar: 'http://cdn.libravatar.org/avatar/',
     name: '',
     content: '',
     title: '',
@@ -233,7 +233,12 @@ export class DashboardStore implements IDashboardStore {
     data: []
   }
   @observable user = {
-    avatar: 'http://img.hb.aicdn.com/bc442cf0cc6f7940dcc567e465048d1a8d634493198c4-sPx5BR_fw236',
+    avatar: 'http://cdn.libravatar.org/avatar/',
+  }
+
+  constructor() {
+    //this.query({})
+    //this.queryWeather({})
   }
 
   @action.bound
