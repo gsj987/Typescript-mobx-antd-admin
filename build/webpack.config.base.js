@@ -30,11 +30,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader?modules&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]__[hash:8]', 'postcss-loader' ])
-      },
-      {
-        test: /\.less$/,
-        loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader?module&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:8]', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ])
+        loader: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|jpg|gif)$/,
@@ -43,14 +39,6 @@ module.exports = {
     ]
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      test: /\.css$/,
-      options: {
-        postcss: [
-          require('postcss-nested')
-        ]
-      }
-    }),
     new webpack.DllReferencePlugin({
       manifest: require('../run/lib_manifest.json'),
       context: root,
