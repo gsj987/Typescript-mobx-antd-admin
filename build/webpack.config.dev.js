@@ -19,6 +19,10 @@ config.output = assign(config.output, {
 
 config.module.loaders = config.module.loaders.concat([
   {
+    test: /\.css$/,
+    loader: ['style-loader', 'css-loader']
+  },
+  {
     test: /\.less$/,
     exclude: /node_modules/,
     loader: ['style-loader', 'typings-for-css-modules-loader?module&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:8]', 'less-loader' ]

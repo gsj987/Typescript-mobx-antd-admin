@@ -29,10 +29,6 @@ module.exports = {
         loader: ['react-hot-loader', 'awesome-typescript-loader']
       },
       {
-        test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
-      },
-      {
         test: /\.(png|jpg|gif)$/,
         loader: `file-loader?name=style/[name]-[hash].[ext]`
       }

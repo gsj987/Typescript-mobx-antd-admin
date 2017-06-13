@@ -18,15 +18,28 @@ config.output = assign(config.output, {
 
 config.module.loaders = config.module.loaders.concat([
   {
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['css-loader']
+    })
+  },
+  {
     test: /\.less$/,
     exclude: /node_modules/,
-    loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader?module&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:8]', 'less-loader' ])
+    loader: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['typings-for-css-modules-loader?module&namedExport&camelCase&importLoaders=1&localIdentName=[name]__[local]___[hash:8]', 'less-loader' ]
+    })
   },
   {
     test: /\.less$/,
     include: /node_modules/,
     exclude: front,
-    loader: ExtractTextPlugin.extract([ 'typings-for-css-modules-loader?namedExport&camelCase&importLoaders=1', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ])
+    loader: ExtractTextPlugin.extract({
+      fallback: 'style-loader',
+      use: ['css-loader?importLoaders=1', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ]
+    })
   }
 ])
 
@@ -51,7 +64,10 @@ config.plugins.push(
     template: 'src/index.html',
     inject: 'body',
     dllName: DLLConfig.lib.js,
-    minify: true
+    minify:
+    {
+      removeAttributeQuotes: true
+    }
   })
 )
 
