@@ -21,6 +21,7 @@ const pkg = require(paths.appPackageJson);
 
 const webpackConfigBase = {
   entry: [
+    'babel-polyfill',
     join(paths.appSrc, 'index')
   ],
   output: {

@@ -237,8 +237,8 @@ export class DashboardStore implements IDashboardStore {
   }
 
   constructor() {
-    //this.query({})
-    //this.queryWeather({})
+    this.query({})
+    this.queryWeather({})
   }
 
   @action.bound
@@ -253,7 +253,7 @@ export class DashboardStore implements IDashboardStore {
   async queryWeather(payload: any) {
     const myCityResult = await myCity({flg: 0})
     const result = await queryWeather({cityCode: myCityResult.selectCityCode})
-    const weather = zuimei.parseActualData(result)
+    const weather = zuimei.parseActualData(result.data.actual)
     weather.city = myCityResult.selectCityName
     runInAction('queryWeatherSuccess', ()=>{
       this.weather = weather
