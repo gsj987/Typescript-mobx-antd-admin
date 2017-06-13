@@ -43,6 +43,7 @@ class MModal extends React.Component<IProps & IFormWrapper, any>{
   }
 
   handleOk = () => {
+    console.log(this.props.form)
     this.props.form.validateFields((errors) => {
       if (errors) {
         return

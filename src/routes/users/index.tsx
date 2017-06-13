@@ -4,28 +4,28 @@ import { UserFilter, IProps as IUserFilterProps } from './UserFilter'
 import { UserModal, IProps as IUserModalProps } from './UserModal'
 import { IUsersStore, IUser } from '../../models/users'
 import { RouterStore } from 'mobx-react-router'
-import '../../utils/locationExtenions'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+import { autorun } from 'mobx'
+import { inject } from '../../loader'
+
 
 interface IUserProps {
-  location: Location,
-  router: RouterStore
+  routing: RouterStore
   users: IUsersStore,
-  loading: boolean,
 }
 
-const Users = inject('users')(observer(
-  ({ location, router, users, loading }: IUserProps) => {
+const Users = inject<IUserProps>('users', 'routing')(observer(
+  ({ routing, users }: IUserProps) => {
     const { list, pagination, currentItem, modalVisible, modalType, isMotion } = users
-    const field = location.query('field')
-    const keyword = location.query('keyword')
+    const location = routing.location
+    const { field, keyword } = location.query
 
     const userModalProps: IUserModalProps = {
       item: modalType === 'create' ? {} : currentItem,
       type: modalType,
-      visible: modalVisible,
+      visible: users.modalVisible,
       onOk (data) {
-        users.showModal(modalType)
+        users[modalType](data)
       },
       onCancel () {
         users.hideModal()
@@ -34,13 +34,12 @@ const Users = inject('users')(observer(
 
     const userListProps: IUserListProps = {
       dataSource: list,
-      loading,
+      loading: false,
       pagination,
-      location,
       isMotion,
       onPageChange (page) {
         const { query, pathname } = location
-        router.push({
+        routing.push({
           pathname: pathname,
           state: {
             ...query,
@@ -62,13 +61,13 @@ const Users = inject('users')(observer(
       keyword,
       isMotion,
       onSearch (fieldsValue): {} {
-        fieldsValue.keyword.length ? router.push({
+        fieldsValue.keyword.length ? routing.push({
           pathname: '/users',
           state: {
             field: fieldsValue.field,
             keyword: fieldsValue.keyword,
           }
-        }) : router.push('/users')
+        }) : routing.push('/users')
         return {}
       },
       onAdd () {

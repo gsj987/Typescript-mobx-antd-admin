@@ -39,7 +39,7 @@ export const inject: (<P>(...storeNames: string[]) => (<TFunction extends IReact
           newProps[key] = additionalProps[key];
         }
 
-        return React.createElement(Component, newProps)
+        return <Component {...newProps} />
       }
       return Wrapper
     }

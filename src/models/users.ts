@@ -1,4 +1,4 @@
-import { observable, computed, action, runInAction } from 'mobx'
+import { observable, computed, action, runInAction, autorun } from 'mobx'
 import { create, remove, update, query } from '../services/users'
 import { PaginationProps } from 'antd/lib/pagination'
 import { IStore } from './istore'
@@ -40,7 +40,7 @@ export interface IUsersStore extends IStore {
 }
 
 export class UsersStore implements IUsersStore {
-  namespace = 'user'
+  namespace = 'users'
 
   @observable list:Array<IUser> = []
   @observable currentItem:IUser
@@ -53,6 +53,10 @@ export class UsersStore implements IUsersStore {
       showTotal: total => `共 ${total} 条`,
       current: 1,
       total: 0
+  }
+
+  constructor() {
+    this.query({})
   }
 
   @action.bound

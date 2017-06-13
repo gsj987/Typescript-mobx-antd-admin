@@ -17,8 +17,7 @@ export interface IProps {
   onPageChange: (pagination: PaginationProps, filters: string[], sorter: Object) => any,
   onDeleteItem: (id: number) => void,
   onEditItem: (record: any) => void,
-  isMotion: boolean,
-  location: Location
+  isMotion: boolean
 }
 
 interface IRecord extends IUser {
@@ -27,7 +26,7 @@ interface IRecord extends IUser {
 
 class LTable extends Table<IRecord> {}
 
-function List ({ loading, dataSource, pagination, onPageChange, onDeleteItem, onEditItem, isMotion, location }: IProps) {
+function List ({ loading, dataSource, pagination, onPageChange, onDeleteItem, onEditItem, isMotion }: IProps) {
   const handleMenuClick = (record, e) => {
     if (e.key === '1') {
       onEditItem(record)

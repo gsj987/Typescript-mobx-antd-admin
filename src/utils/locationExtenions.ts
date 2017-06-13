@@ -1,8 +1,8 @@
 interface Location {
-  query: (key: string) => string
+  queryParams: (key: string) => string
 }
 
-Location.prototype.query = function(key: string){
+Location.prototype.queryParams = function(key: string){
   let result: string = ''
 
   this.search.substr(1).split("&").forEach(function (pair) {

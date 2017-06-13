@@ -3,7 +3,8 @@ import { Button, Row, Form, Input } from 'antd'
 import { WrappedFormUtils } from 'antd/lib/form/Form'
 import { config } from '../../utils'
 import { ILoginStore } from '../../models/login'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
+import { inject } from '../../loader'
 import styles from './index.less'
 
 const FormItem = Form.Item
