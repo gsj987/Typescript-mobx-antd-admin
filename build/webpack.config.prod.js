@@ -1,15 +1,12 @@
 const webpack = require('webpack')
-const config = require('./webpack.config.base')
+const { webpackConfigBase, paths, pkg } = require('./webpack.config.base')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const HtmlwebpackPlugin = require('html-webpack-plugin')
 const DLLConfig = require('../run/lib_assets.json')
 const { assign } = Object
-const { join } = require('path')
-const root = process.cwd()
-const front = join(root, 'src')
-const pkg = require(join(root, 'package.json'))
 
 
+const config = webpackConfigBase
 
 config.output = assign(config.output, {
   filename: 'bundle/[name].[hash:8].js',
@@ -35,7 +32,7 @@ config.module.loaders = config.module.loaders.concat([
   {
     test: /\.less$/,
     include: /node_modules/,
-    exclude: front,
+    exclude: paths.appSrc,
     loader: ExtractTextPlugin.extract({
       fallback: 'style-loader',
       use: ['css-loader?importLoaders=1', `less-loader?{modifyVars:${JSON.stringify(pkg.config.antd.theme)}}` ]

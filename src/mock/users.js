@@ -1,6 +1,6 @@
-import qs from 'qs'
-import Mock from 'mockjs'
-import config from '../utils/config'
+const qs = require('qs')
+const Mock = require('mockjs')
+const config = require('../utils/config')
 const { apiPrefix } = config
 
 let usersListData = Mock.mock({
@@ -36,14 +36,7 @@ const userPermission = {
   DEVELOPER: ['dashboard', 'users', 'UIElement', 'UIElementIconfont', 'chart'],
 }
 
-interface IUser {
-  id?: number,
-  username?: string,
-  password?: string,
-  permissions?: Array<string>
-}
-
-const adminUsers: Array<IUser> = [
+const adminUsers = [
   {
     id: 0,
     username: 'admin',
@@ -62,7 +55,7 @@ const adminUsers: Array<IUser> = [
   },
 ]
 
-export const user = {
+module.exports = {
 
   [`POST ${apiPrefix}/user/login`] (req, res) {
     const { username, password } = req.body
@@ -88,8 +81,8 @@ export const user = {
 
   [`GET ${apiPrefix}/userInfo`] (req, res) {
     const cookies = qs.parse(req.headers.cookie, { delimiter: ';' })
-    const response: { success?: boolean, user?: IUser } = {}
-    const user: IUser = {}
+    const response = {}
+    const user = {}
     if (!cookies.token) {
       res.status(200).send({ message: 'Not Login' })
       return
@@ -139,10 +132,9 @@ export const user = {
     res.json({
       success: true,
       data,
-      page: {
-        ...newPage,
+      page: Object.assign({
         pageSize: Number(pageSize),
-      },
+      }, newPage),
     })
   },
 

@@ -11,4 +11,4 @@ const color = {
   sky: '#c1e0fc',
 }
 
-export { color };
+module.exports = { color };

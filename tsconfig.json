@@ -9,7 +9,8 @@
     "noImplicitAny": false,
     "removeComments": true,
     "sourceMap": false,
-    "baseUrl": "front"
+    "allowJs": true,
+    "baseUrl": "dist"
   },
   "awesomeTypescriptLoaderOptions": {
     "useBabel": true,
