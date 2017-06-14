@@ -5,7 +5,7 @@
 ## 特性
 * 基于[React](https://github.com/facebook/react)，[ant-design](https://github.com/ant-design/ant-design)
 * 基于[Antd-Admin](https://github.com/zuiidea/antd-admin)，是一个比较完整的Admin Panel的实现
-* 不使用[dvajs](https://github.com/dvajs/dva)和[roadhog](https://github.com/sorrycc/roadhog)，完全的webpack + mobx + react-router的实现，尽可能的减少依赖，适应尽量多的开发情况
+* 纯的 webpack + mobx + react-router 的实现，尽可能的减少依赖，适应尽量多的开发情况 
 * 基于 React-router 的动态Model和路由，按需载入
 * 基于 webpack-dev-server 实现Mock功能
 * 使用 Typescript 作为开发语言，自动的参数和类型检测，方便规模团队的协同开发
