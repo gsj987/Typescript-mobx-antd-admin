@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react'
 import { Menu, Icon } from 'antd'
 import { Link } from 'react-router'
 import { menu } from '../../utils'
-import { Location } from 'mobx-react-router'
 
 const topMenus = menu.map(item => item.key)
 const getMenus = function (menuArray: typeof menu, siderFold: boolean, parentPath = '/'): Array<JSX.Element> {
@@ -29,7 +28,7 @@ const getMenus = function (menuArray: typeof menu, siderFold: boolean, parentPat
 interface IProps {
   siderFold: boolean,
   darkTheme: boolean,
-  location: Location,
+  location: string,
   handleClickNavMenu?: any,
   navOpenKeys: Array<string>,
   changeOpenKeys: (nextOpenKeys: Array<string>) => void
@@ -69,7 +68,7 @@ function Menus ({ siderFold, darkTheme, location, handleClickNavMenu, navOpenKey
       mode={siderFold ? 'vertical' : 'inline'}
       theme={darkTheme ? 'dark' : 'light'}
       onClick={handleClickNavMenu}
-      defaultSelectedKeys={[location.pathname !== '/' ? location.pathname : '/dashboard']}
+      defaultSelectedKeys={[location !== '/' ? location : '/dashboard']}
     >
       {menuItems}
     </Menu>

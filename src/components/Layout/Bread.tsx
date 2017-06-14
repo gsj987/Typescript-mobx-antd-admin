@@ -22,9 +22,9 @@ const getPathSet = function (menuArray: Array<IMenuKey>, parentPath: string|unde
 }
 getPathSet(menu, undefined)
 
-function Bread ({ location: {pathname: string} }) {
+function Bread ({ location }: { location: string }) {
   let pathNames:Array<string> = []
-  location.pathname.substr(1).split('/').forEach((item, key) => {
+  location.substr(1).split('/').forEach((item, key) => {
     if (key > 0) {
       pathNames.push((`${pathNames[key - 1]}-${item}`).hyphenToHump())
     } else {

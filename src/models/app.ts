@@ -1,7 +1,7 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { getUserInfo, logout } from '../services/app'
 import { config } from '../utils'
-import { RouterStore } from 'mobx-react-router'
+import { RouterStore } from './router'
 const { prefix } = config
 import { IStore } from './istore'
 
@@ -51,13 +51,12 @@ export class AppStore implements IAppStore{
     runInAction('queryUserSuccess', () => {
       if (data.success && data.user) {
         this.user = data.user
-        if (this.router.location && (this.router.location.pathname === '/login')) {
+        if (this.router.path === '/login') {
           this.router.push('/dashboard')
         }
       } else {
-        if (this.router.location && (this.router.location.pathname !== '/login')) {
-          let from = this.router.location.pathname
-          this.router.push(`/login?from=${from}`)
+        if (this.router.path !== '/login') {
+          this.router.push(`/login?from=${this.router.path}`)
         }
       }
     })

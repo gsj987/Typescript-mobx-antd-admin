@@ -1,10 +1,11 @@
 import { Router } from 'react-router'
-import { SynchronizedHistory, RouterStore } from 'mobx-react-router'
+import { RouterStore } from './models/router'
 import { Provider, observer, IWrappedComponent, IReactComponent } from 'mobx-react'
 import React from 'react'
 import { IRouters } from './router'
 import { IStore } from './models/istore'
 import { observable, autorun } from 'mobx'
+import { History } from 'history'
 
 type TStores = {
   [key: string]: any
@@ -48,10 +49,10 @@ export const inject: (<P>(...storeNames: string[]) => (<TFunction extends IReact
 export class Loader {
   private router: (args: IRouters) => JSX.Element
   private cached = {}
-  private history: SynchronizedHistory
+  private history: History
 
   constructor(
-    history: SynchronizedHistory,
+    history: History,
     routing: RouterStore,
     app: IStore,
     router: (args: IRouters) => JSX.Element ) {
@@ -66,7 +67,6 @@ export class Loader {
     if (!this.cached[model.namespace]) {
       this.cached[model.namespace] = 1
       stores[model.namespace] = model
-      console.log(model)
     }
   }
 

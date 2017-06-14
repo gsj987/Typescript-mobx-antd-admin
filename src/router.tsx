@@ -1,13 +1,14 @@
 import React, { PropTypes } from 'react'
 import { Router, browserHistory, RouteConfig } from 'react-router'
 import App from './routes/app'
-import { RouterStore, SynchronizedHistory } from 'mobx-react-router'
+import { RouterStore } from './models/router'
 import { Loader } from './loader'
+import { History } from 'history'
 
 declare var require: Require
 
 export interface IRouters {
-  history: SynchronizedHistory,
+  history: History,
   app: Loader
 }
 

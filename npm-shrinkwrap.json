@@ -8,9 +8,9 @@
       "resolved": "https://registry.npm.taobao.org/@types/axios/download/@types/axios-0.14.0.tgz"
     },
     "@types/history": {
-      "version": "4.5.2",
-      "from": "@types/history@>=4.5.1 <5.0.0",
-      "resolved": "https://registry.npm.taobao.org/@types/history/download/@types/history-4.5.2.tgz"
+      "version": "3.2.1",
+      "from": "@types/history@>=3.2.0 <3.3.0",
+      "resolved": "https://registry.npm.taobao.org/@types/history/download/@types/history-3.2.1.tgz"
     },
     "@types/node": {
       "version": "7.0.31",
@@ -412,11 +412,6 @@
       "version": "4.2.1",
       "from": "mobx-react@>=4.1.0 <5.0.0",
       "resolved": "https://registry.npm.taobao.org/mobx-react/download/mobx-react-4.2.1.tgz"
-    },
-    "mobx-react-router": {
-      "version": "3.1.2",
-      "from": "mobx-react-router@>=3.0.0 <4.0.0",
-      "resolved": "https://registry.npm.taobao.org/mobx-react-router/download/mobx-react-router-3.1.2.tgz"
     },
     "moment": {
       "version": "2.18.1",

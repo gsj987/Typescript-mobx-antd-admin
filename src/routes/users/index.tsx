@@ -3,7 +3,7 @@ import { List as UserList, IProps as IUserListProps } from './UserList'
 import { UserFilter, IProps as IUserFilterProps } from './UserFilter'
 import { UserModal, IProps as IUserModalProps } from './UserModal'
 import { IUsersStore, IUser } from '../../models/users'
-import { RouterStore } from 'mobx-react-router'
+import { RouterStore } from '../../models/router'
 import { observer } from 'mobx-react'
 import { autorun } from 'mobx'
 import { inject } from '../../loader'
@@ -17,13 +17,13 @@ interface IUserProps {
 const Users = inject<IUserProps>('users', 'routing')(observer(
   ({ routing, users }: IUserProps) => {
     const { list, pagination, currentItem, modalVisible, modalType, isMotion } = users
-    const location = routing.location
-    const { field, keyword } = location.query
+    const location = routing.path
+    const { field, keyword } = routing.query
 
     const userModalProps: IUserModalProps = {
       item: modalType === 'create' ? {} : currentItem,
       type: modalType,
-      visible: users.modalVisible,
+      visible: modalVisible,
       onOk (data) {
         users[modalType](data)
       },
@@ -38,15 +38,14 @@ const Users = inject<IUserProps>('users', 'routing')(observer(
       pagination,
       isMotion,
       onPageChange (page) {
-        const { query, pathname } = location
-        routing.push({
-          pathname: pathname,
-          state: {
-            ...query,
-            page: page.current,
-            pageSize: page.pageSize
+        routing.push(
+          location,
+          {
+            ...routing.query,
+            page: String(page.current),
+            pageSize: String(page.pageSize)
           }
-        })
+        )
       },
       onDeleteItem (id) {
         users.delete(id)
@@ -61,13 +60,13 @@ const Users = inject<IUserProps>('users', 'routing')(observer(
       keyword,
       isMotion,
       onSearch (fieldsValue): {} {
-        fieldsValue.keyword.length ? routing.push({
-          pathname: '/users',
-          state: {
+        fieldsValue.keyword.length ? routing.push(
+          '/users',
+          {
             field: fieldsValue.field,
             keyword: fieldsValue.keyword,
           }
-        }) : routing.push('/users')
+        ) : routing.push('/users')
         return {}
       },
       onAdd () {

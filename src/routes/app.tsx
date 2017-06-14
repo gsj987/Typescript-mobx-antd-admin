@@ -5,7 +5,7 @@ import { IAppStore } from '../models/app'
 import { Helmet } from 'react-helmet'
 import '../themes/index.less'
 import { inject, observer } from 'mobx-react'
-import { RouterStore } from 'mobx-react-router'
+import { RouterStore } from '../models/router'
 
 const { Header, Bread, Footer, Sider, styles } = Layout
 
@@ -23,7 +23,7 @@ class App extends React.Component<IAppProps, any> {
     const { app, routing } = this.props
 
     const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = app
-    const location = routing.location
+    const location = routing.path
     const headerProps = {
       user,
       siderFold,
@@ -59,7 +59,7 @@ class App extends React.Component<IAppProps, any> {
       },
     }
 
-    if (config.openPages && config.openPages.indexOf(location.pathname) > -1) {
+    if (config.openPages && config.openPages.indexOf(location) > -1) {
       return <div>{this.props.children}</div>
     }
 
