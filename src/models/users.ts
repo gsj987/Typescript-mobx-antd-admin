@@ -49,10 +49,10 @@ export class UsersStore implements IUsersStore {
   @observable isMotion:boolean = localStorage.getItem('antdAdminUserIsMotion') === 'true'
   @observable pagination: PaginationProps = {
     showSizeChanger: true,
-      showQuickJumper: true,
-      showTotal: total => `共 ${total} 条`,
-      current: 1,
-      total: 0
+    showQuickJumper: true,
+    showTotal: total => `共 ${total} 条`,
+    current: 1,
+    total: 0
   }
 
   constructor() {

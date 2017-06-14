@@ -1,7 +1,7 @@
 import { observable, action, runInAction, autorun, computed } from 'mobx';
 import { History } from 'history'
 
-const paramsParser = (searchString: string): {[key: string]: string} => {
+const parseParams = (searchString: string): {[key: string]: string} => {
     if (!searchString) return {}
     let match,
         pl     = /\+/g,  // Regex for replacing addition symbol with a space
@@ -15,7 +15,7 @@ const paramsParser = (searchString: string): {[key: string]: string} => {
     return urlParams
 }
 
-const serializer = (obj: {[key: string]: string|number}): string => {
+const serialize = (obj: {[key: string]: string|number}): string => {
   let str:Array<string> = [];
   for(let p in obj)
     if (obj.hasOwnProperty(p)) {
@@ -45,11 +45,11 @@ export class RouterStore {
   }
 
   @computed get path():string { return this._path }
-  @computed get query(): {[key: string]: string} { return paramsParser(this._search) }
+  @computed get query(): {[key: string]: string} { return parseParams(this._search) }
 
   push(path: string, query?: {[key: string]: string|number}) {
     if(query){
-      this.history.push(path+'?'+serializer(query))
+      this.history.push(path+'?'+serialize(query))
     }else{
       this.history.push(path)
     }
@@ -57,7 +57,7 @@ export class RouterStore {
 
   replace(path: string, query?: {[key: string]: string|number}) {
     if(query){
-      this.history.replace(path+'?'+serializer(query))
+      this.history.replace(path+'?'+serialize(query))
     }else{
       this.history.replace(path)
     }

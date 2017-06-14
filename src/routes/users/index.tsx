@@ -46,6 +46,7 @@ const Users = inject<IUserProps>('users', 'routing')(observer(
             pageSize: String(page.pageSize)
           }
         )
+        users.query(routing.query)
       },
       onDeleteItem (id) {
         users.delete(id)
@@ -67,6 +68,7 @@ const Users = inject<IUserProps>('users', 'routing')(observer(
             keyword: fieldsValue.keyword,
           }
         ) : routing.push('/users')
+        users.query(routing.query)
         return {}
       },
       onAdd () {
