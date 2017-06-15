@@ -308,6 +308,16 @@
       "from": "invariant@>=2.2.0 <3.0.0",
       "resolved": "https://registry.npm.taobao.org/invariant/download/invariant-2.2.2.tgz"
     },
+    "inversify": {
+      "version": "4.1.1",
+      "from": "inversify@latest",
+      "resolved": "https://registry.npm.taobao.org/inversify/download/inversify-4.1.1.tgz"
+    },
+    "inversify-inject-decorators": {
+      "version": "3.0.1",
+      "from": "inversify-inject-decorators@latest",
+      "resolved": "https://registry.npm.taobao.org/inversify-inject-decorators/download/inversify-inject-decorators-3.0.1.tgz"
+    },
     "is-buffer": {
       "version": "1.1.5",
       "from": "is-buffer@>=1.1.5 <2.0.0",

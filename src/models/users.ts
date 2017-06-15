@@ -1,7 +1,7 @@
 import { observable, computed, action, runInAction, autorun } from 'mobx'
 import { create, remove, update, query } from '../services/users'
 import { PaginationProps } from 'antd/lib/pagination'
-import { IStore } from './istore'
+import { injectable, inject } from "inversify";
 
 export interface IUser {
   id?: number,
@@ -22,7 +22,7 @@ export interface IUser {
 }
 
 
-export interface IUsersStore extends IStore {
+export interface IUsersStore {
   list:Array<IUser>,
   currentItem: IUser,
   modalVisible: boolean,
@@ -39,9 +39,8 @@ export interface IUsersStore extends IStore {
   hideModal: () => void
 }
 
-export class UsersStore implements IUsersStore {
-  namespace = 'users'
-
+@injectable()
+class UsersStore implements IUsersStore {
   @observable list:Array<IUser> = []
   @observable currentItem:IUser
   @observable modalVisible:boolean = false
@@ -124,5 +123,4 @@ export class UsersStore implements IUsersStore {
   hideModal() { this.modalVisible = false }
 }
 
-const usersStore = new UsersStore()
-export { usersStore as default }
+export { UsersStore as default }

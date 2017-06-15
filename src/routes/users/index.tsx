@@ -14,79 +14,94 @@ interface IUserProps {
   users: IUsersStore,
 }
 
-const Users = inject<IUserProps>('users', 'routing')(observer(
-  ({ routing, users }: IUserProps) => {
-    const { list, pagination, currentItem, modalVisible, modalType, isMotion } = users
-    const location = routing.path
-    const { field, keyword } = routing.query
+@observer
+class Users extends React.Component<void, void> {
+  @inject('routing')
+  private routing: RouterStore
 
-    const userModalProps: IUserModalProps = {
+  @inject('UsersStore')
+  private users: IUsersStore
+
+  getUserModalProps = (modalType: string, currentItem: IUser, modalVisible: boolean): IUserModalProps => {
+    const self = this
+    return {
       item: modalType === 'create' ? {} : currentItem,
       type: modalType,
       visible: modalVisible,
       onOk (data) {
-        users[modalType](data)
+        self.users[modalType](data)
       },
       onCancel () {
-        users.hideModal()
-      },
+        self.users.hideModal()
+      }
     }
+  }
 
-    const userListProps: IUserListProps = {
+  getUserListProps = (list: Array<IUser>, pagination: any, isMotion: boolean):IUserListProps => {
+    const self = this
+    return {
       dataSource: list,
       loading: false,
       pagination,
       isMotion,
       onPageChange (page) {
-        routing.push(
-          location,
+        self.routing.push(
+          self.routing.path,
           {
-            ...routing.query,
+            ...self.routing.query,
             page: String(page.current),
             pageSize: String(page.pageSize)
           }
         )
-        users.query(routing.query)
+        self.users.query(self.routing.query)
       },
       onDeleteItem (id) {
-        users.delete(id)
+        self.users.delete(id)
       },
       onEditItem (item: IUser) {
-        users.showModal('update', item)
-      },
+        self.users.showModal('update', item)
+      }
     }
+  }
 
-    const userFilterProps: IUserFilterProps = {
+  getUserFilterProps = (field: string, keyword: string, isMotion: boolean):IUserFilterProps => {
+    const self = this
+    return {
       field,
       keyword,
       isMotion,
       onSearch (fieldsValue): {} {
-        fieldsValue.keyword.length ? routing.push(
+        fieldsValue.keyword.length ? self.routing.push(
           '/users',
           {
             field: fieldsValue.field,
             keyword: fieldsValue.keyword,
           }
-        ) : routing.push('/users')
-        users.query(routing.query)
+        ) : self.routing.push('/users')
+        self.users.query(self.routing.query)
         return {}
       },
       onAdd () {
-        users.showModal('create')
-      },
+        self.users.showModal('create')
+      }
     }
+  }
+
+  render(){
+    const { list, pagination, currentItem, modalVisible, modalType, isMotion } = this.users
+    const { field, keyword } = this.routing.query
 
     const UserModalGen = () =>
-      <UserModal {...userModalProps} />
+      <UserModal {...this.getUserModalProps(modalType, currentItem, modalVisible)} />
 
     return (
       <div className="content-inner">
-        <UserFilter {...userFilterProps} />
-        <UserList {...userListProps} />
+        <UserFilter {...this.getUserFilterProps(field, keyword, isMotion)} />
+        <UserList {...this.getUserListProps(list, pagination, isMotion)} />
         <UserModalGen />
       </div>
     )
   }
-))
+}
 
 export { Users as default }

@@ -4,26 +4,28 @@ import { classnames, config } from '../utils'
 import { IAppStore } from '../models/app'
 import { Helmet } from 'react-helmet'
 import '../themes/index.less'
-import { inject, observer } from 'mobx-react'
+import { observer } from 'mobx-react'
 import { RouterStore } from '../models/router'
+import { inject } from '../loader'
 
 const { Header, Bread, Footer, Sider, styles } = Layout
 
 
 interface IAppProps {
   children: JSX.Element | string,
-  routing: RouterStore,
-  app: IAppStore
 }
 
-@inject('app', 'routing')
 @observer
 class App extends React.Component<IAppProps, any> {
-  render() {
-    const { app, routing } = this.props
+  @inject('app')
+  private app: IAppStore
+  @inject('routing')
+  private routing: RouterStore
 
-    const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = app
-    const location = routing.path
+  render() {
+    const { user, siderFold, darkTheme, isNavbar, menuPopoverVisible, navOpenKeys } = this.app
+    const location = this.routing.path
+    const self = this
     const headerProps = {
       user,
       siderFold,
@@ -32,16 +34,16 @@ class App extends React.Component<IAppProps, any> {
       menuPopoverVisible,
       navOpenKeys,
       switchMenuPopover () {
-        app.switchMenuPopver()
+        self.app.switchMenuPopver()
       },
       logout () {
-        app.logout({})
+        self.app.logout({})
       },
       switchSider () {
-        app.switchSider()
+        self.app.switchSider()
       },
       changeOpenKeys (openKeys: Array<string>) {
-        app.handleNavOpenKeys(openKeys)
+        self.app.handleNavOpenKeys(openKeys)
       },
     }
 
@@ -51,11 +53,11 @@ class App extends React.Component<IAppProps, any> {
       location,
       navOpenKeys,
       changeTheme () {
-        app.changeTheme()
+        self.app.changeTheme()
       },
       changeOpenKeys (openKeys: Array<string>) {
         localStorage.setItem('navOpenKeys', JSON.stringify(openKeys))
-        app.handleNavOpenKeys(openKeys)
+        self.app.handleNavOpenKeys(openKeys)
       },
     }
 

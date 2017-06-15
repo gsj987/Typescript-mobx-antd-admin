@@ -10,6 +10,7 @@
 * 基于 webpack-dev-server 实现Mock功能
 * 使用 Typescript 作为开发语言，自动的参数和类型检测，方便规模团队的协同开发
 * 使用 [Mobx](https://github.com/mobxjs/mobx) 代替 Redux，更加简单灵活容易理解，提供类似 MVVM 的开发体验
+* 使用 [InversifyJs](http://inversify.io/) 实现依赖注入，完全替代 Mobx-React 的inject，整体架构更容易理解，降低藕合，方便使用
 
 ## 开发架构
 参考 [Antd-Admin](https://github.com/zuiidea/antd-admin) 的 README

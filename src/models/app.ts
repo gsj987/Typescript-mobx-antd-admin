@@ -3,9 +3,9 @@ import { getUserInfo, logout } from '../services/app'
 import { config } from '../utils'
 import { RouterStore } from './router'
 const { prefix } = config
-import { IStore } from './istore'
+import { injectable, inject } from "inversify";
 
-export interface IAppStore extends IStore {
+export interface IAppStore {
   user: any,
   loginButtonLoading: boolean,
   menuPopoverVisible: boolean,
@@ -23,9 +23,8 @@ export interface IAppStore extends IStore {
   handleNavOpenKeys: (navOpenKeys: Array<string>) => void,
 }
 
-export class AppStore implements IAppStore{
-  namespace = "app"
-
+@injectable()
+class AppStore implements IAppStore{
   @observable user: any = {};
   @observable loginButtonLoading: boolean = false;
   @observable menuPopoverVisible: boolean = false;
@@ -36,8 +35,9 @@ export class AppStore implements IAppStore{
 
   router: RouterStore;
 
-  constructor(router: RouterStore) {
+  constructor(@inject('routing') router: RouterStore) {
     this.router = router
+    this.queryUser({})
     // 自动调整页面
     window.onresize = () => {
       this.changeNavbar()
@@ -105,3 +105,5 @@ export class AppStore implements IAppStore{
     this.navOpenKeys = navOpenKeys
   }
 }
+
+export { AppStore }

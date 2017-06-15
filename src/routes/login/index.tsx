@@ -4,28 +4,29 @@ import { WrappedFormUtils } from 'antd/lib/form/Form'
 import { config } from '../../utils'
 import { ILoginStore } from '../../models/login'
 import { observer } from 'mobx-react'
-import { inject } from '../../loader'
 import styles from './index.less'
+import { inject } from '../../loader'
 
 const FormItem = Form.Item
 
 interface IPros {
-  loginStore: ILoginStore,
   form: WrappedFormUtils
 }
 
 
-@inject('login')
 @observer
 @Form.create<IPros>()
 class Login extends React.Component<IPros, any>{
+
+  @inject('LoginStore')
+  private login: ILoginStore
 
   handleOk = () => {
     this.props.form.validateFieldsAndScroll((errors, values) => {
       if (errors) {
         return
       }
-      this.props.loginStore.login(values)
+      this.login.login(values)
     })
   }
 
@@ -58,7 +59,7 @@ class Login extends React.Component<IPros, any>{
             })(<Input size="large" type="password" onPressEnter={this.handleOk} placeholder="密码" />)}
           </FormItem>
           <Row>
-            <Button type="primary" size="large" onClick={this.handleOk} loading={this.props.loginStore.loginLoading}>
+            <Button type="primary" size="large" onClick={this.handleOk} loading={this.login.loginLoading}>
               登录
             </Button>
             <p>

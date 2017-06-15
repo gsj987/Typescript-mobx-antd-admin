@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react'
 import { Router, browserHistory, RouteConfig } from 'react-router'
-import App from './routes/app'
 import { RouterStore } from './models/router'
 import { Loader } from './loader'
 import { History } from 'history'
@@ -16,7 +15,7 @@ const Routers = function ({ history, app }: IRouters): JSX.Element {
   const routes: Array<RouteConfig> = [
     {
       path: '/',
-      component: App,
+      component: require<any>('./routes/app').default,
       getIndexRoute (nextState, cb) {
         require.ensure([], require => {
           app.registerModel(require<any>('./models/dashboard').default)

@@ -1,17 +1,22 @@
 import { login } from '../services/login'
 import { observable, computed, action, runInAction } from 'mobx'
-import { queryURL } from '../utils'
-import { IStore } from './istore'
+import { RouterStore } from './router'
+import { injectable, inject } from "inversify";
 
-export interface ILoginStore extends IStore {
+export interface ILoginStore {
   loginLoading: boolean,
   login: (payload: any) => void
 }
 
-export class LoginState implements ILoginStore {
-  namespace = 'login'
+@injectable()
+class LoginStore implements ILoginStore {
+  @observable loginLoading: boolean = false
 
-  @observable loginLoading: boolean = false;
+  private router: RouterStore
+
+  constructor(@inject('routing') router: RouterStore) {
+    this.router = router
+  }
 
   @action.bound
   async login(payload) {
@@ -20,11 +25,11 @@ export class LoginState implements ILoginStore {
     runInAction('loginCallback', ()=>{
       this.loginLoading = false
       if (data.success) {
-        const from = queryURL('from')
+        const from = this.router.query.from
         if (from) {
-          window.location.href = from
+          this.router.push(from)
         }else{
-          window.location.href = '/dashboard'
+          this.router.push('/dashboard')
         }
       }else{
         throw data
@@ -34,5 +39,4 @@ export class LoginState implements ILoginStore {
 }
 
 
-const loginStore = new LoginState()
-export { loginStore as default }
+export { LoginStore as default }

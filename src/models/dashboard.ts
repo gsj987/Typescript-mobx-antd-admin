@@ -1,6 +1,6 @@
 import { observable, computed, action, runInAction } from 'mobx'
 import { myCity, queryWeather, query } from '../services/dashboard'
-import { IStore } from './istore'
+import { injectable, inject } from "inversify";
 
 interface IWeather {
   city: string,
@@ -181,7 +181,7 @@ interface INumber {
   countUp: any
 }
 
-export interface IDashboardStore extends IStore {
+export interface IDashboardStore {
   weather: IWeather,
   sales: Array<never>,
   quote: {
@@ -209,10 +209,8 @@ export interface IDashboardStore extends IStore {
   queryWeather: (payload: any) => void
 }
 
-
-export class DashboardStore implements IDashboardStore {
-  namespace = 'dashboard'
-
+@injectable()
+class DashboardStore implements IDashboardStore {
   @observable weather:IWeather
   @observable sales = []
   @observable quote = {
@@ -261,6 +259,4 @@ export class DashboardStore implements IDashboardStore {
   }
 }
 
-
-const dashboardStore = new DashboardStore()
-export { dashboardStore as default }
+export { DashboardStore as default }

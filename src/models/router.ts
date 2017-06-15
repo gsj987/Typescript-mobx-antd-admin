@@ -1,5 +1,6 @@
 import { observable, action, runInAction, autorun, computed } from 'mobx';
 import { History } from 'history'
+import { injectable, inject } from "inversify";
 
 const parseParams = (searchString: string): {[key: string]: string} => {
     if (!searchString) return {}
@@ -25,7 +26,8 @@ const serialize = (obj: {[key: string]: string|number}): string => {
 }
 
 
-export class RouterStore {
+@injectable()
+class RouterStore {
   history: History
   @observable _path:string
   @observable _search:string
@@ -74,3 +76,5 @@ export class RouterStore {
     this.history.goForward()
   }
 }
+
+export { RouterStore }

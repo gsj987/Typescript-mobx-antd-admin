@@ -10,7 +10,8 @@ module.exports = {
       'react-dom',
       'react-router',
       'mobx',
-      'mobx-react'
+      'mobx-react',
+      'inversify'
     ],
   },
   output: {
